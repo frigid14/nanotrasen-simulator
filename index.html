@@ -20,7 +20,10 @@
 <body>
 	<h1>Nanotrasen Simulator</h1>
 	<p id="note">You are an AI trained to manage the entirety of Nanotrasen. This is a simulation of Nanotrasen that is 99.99% accurate.</p>
-	<!-- TODO: Settings menu, Anthemic, go do this. -->
+	<!-- TODO: Settings menu and move the saving buttons. Anthemic, go do this. -->
+	<button onclick="navigator.clipboard.writeText(exportData()); alert('Saved to clipboard!')">Export Data</button>
+	<button onclick="const data=prompt('Data to import (MUST BE VALID)'); importData(data)">Import Data</button>
+	<button onclick="localStorage.setItem('nt_sim_data', exportData()); alert('Saved data to localstorage!')">Save Data</button>
 	<p>Credits: <span id="credits"></span></p>
 	<h2>Shop</h2>
 	<button id="buy_station_capacity" onclick="buyStationCapacity()">More Station Capacity <span id="capacityPrice">5000</span></button><br><br>
