@@ -33,6 +33,54 @@ function buyStationCapacity() {
 	}
 }
 
+function exportData() {
+	const fullData = {
+		stationAmount: 0,
+		stationPrice: 0,
+		capacityPrice: 0,
+		tickNumber: 0, 
+		credits: 0, 
+		stations: []
+	}
+	for (let i = 0; i < stations.length; i++) {
+		const data = stations[i];
+		fullData.stations.push(data);
+	}
+
+	fullData.stationAmount = stationsBought;
+	fullData.stationPrice = stationPrice;
+	fullData.capacityPrice = capacityPrice;
+	fullData.tickNumber = tickNumber;
+	fullData.credits = credits;
+
+	return btoa(JSON.stringify(fullData));
+}
+
+function importData(data) {
+	try {
+		const packedData = atob(JSON.parse(data));
+		for (let i = 0; i < packedData.stations.length; i++) {
+			const station = packedData.stations[i];
+			addStation(new Station(
+				station.name,
+				station.revenue,
+				station.unrest,
+				station.createdOn,
+				station.upgrades,
+				false,false,0
+			));
+		}
+
+		stationsBought = packedData.stationAmount
+		stationPrice = packedData.stationPrice
+		capacityPrice = packedData.capacityPrice
+		tickNumber = packedData.tickNumber
+		credits = packedData.credits
+	} catch (e) {
+		console.error(e)
+	}
+}
+
 function addStation(station) {
 	stations.push(station);
 	const div = document.createElement("div")
@@ -41,8 +89,8 @@ function addStation(station) {
 	<p class="station_name">Name: ${station.name}</p>
 	<p class="station_revenue">Revenue: ${station.revenue}</p>
 	<p class="station_unrest">Unrest: ${station.unrest}</p>
-	<p class="station_shuttle">Emergency Shuttle Status: ${station.getShuttleStatus()}</p>
-	`
+	` // Add emergency shuttle status WYCI
+	// <p class="station_shuttle">Emergency Shuttle Status: ${station.getShuttleStatus()}</p>
 	document.getElementById("stations").appendChild(div)
 	div.id = station.createdOn
 	
