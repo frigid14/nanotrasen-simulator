@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<script defer src="js/index.js"></script>
+	<script defer src="js/station.js"></script>
+	<script defer src="js/audio.js"></script>
+	<script defer src="js/eventmanager.js"></script>
+	<script defer src="js/tick.js"></script>
+	<script defer src="js/datasets/dataset.js"></script>
+	<script defer src="js/datasets/events.js"></script>
+
+	<link rel="stylesheet" href="css/style.css">
+	<title>Nanotrasen Simulator</title>
+</head>
+<body>
+	<h1>Nanotrasen Simulator</h1>
+	<p id="note">You are an AI trained to manage the entirety of Nanotrasen. This is a simulation of Nanotrasen that is 99.99% accurate.</p>
+	<p>Credits: <span id="credits"></span></p>
+	<details id="stations">
+		<summary>Stations (<span id="stationsAmount">0/5</span>)</summary>
+		<button onclick="buyStation()" id="buyStation">Buy Station</button>
+	</details><br>
+	<details id="events" open>
+		<summary>Events</summary>
+		<p style="color: gray;">There seems to be nothing happening currently...</p>
+	</details=><br>
+</body>
+</html>

@@ -1,0 +1,22 @@
+/* CSS is 4 losers, so stfu */
+
+body {
+	font-family: 'Times New Roman', serif;
+}
+
+div {
+	outline: 5px dashed black;
+	max-width: 16rem;
+	padding: 1px;
+}
+
+details {
+	/* padding: rem; */
+	/* margin: 5rem; */
+	border: 5rem;
+}
+
+details div {
+	padding: 1rem;
+	margin: 1rem;
+}
