@@ -152,7 +152,7 @@ class BluespaceAnomaly extends Event {
 
 class NuclearEmergencyFailure extends Event {
 	name = "Failed Nuclear Operation"
-	message = "A team of nuclear operatives have failed to detonate the nuclear fission device on (STATION-NAME). The cargo techs have sold the loot for extra revenue."
+	message = "A team of nuclear operatives have failed to detonate the nuclear fission device on (STATION_NAME). The cargo techs have sold the loot for extra revenue."
 	threat = 70;
 
 	run(station) {
