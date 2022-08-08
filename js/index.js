@@ -24,7 +24,7 @@ function addCredits(credits_added) {
 
 function buyStationCapacity() {
 	if (credits >= capacityPrice) {
-		addEventLog(`Nanotrasen purchased extra station capacity for ${stationPrice} credits.`, new Station("", 0,0,0,[]), "#00aa00")
+		addEventLog(`Nanotrasen purchased extra station capacity for ${capacityPrice} credits.`, new Station("", 0,0,0,[]), "#00aa00")
 		addCredits(-capacityPrice)
 		maxStations++;
 		capacityPrice = Math.floor(capacityPrice *= 1.75);
