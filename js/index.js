@@ -33,7 +33,65 @@ function buyStationCapacity() {
 	}
 }
 
-function addStation(station) {
+function exportData() {
+	const fullData = {
+		stationAmount: 0,
+		stationPrice: 0,
+		capacityPrice: 0,
+		tickNumber: 0, 
+		credits: 0, 
+		threat: 20,
+		stations: []
+	}
+	for (let i = 0; i < stations.length; i++) {
+		const data = stations[i];
+		fullData.stations.push(data);
+	}
+
+	fullData.stationAmount = stationsBought;
+	fullData.stationPrice = stationPrice;
+	fullData.capacityPrice = capacityPrice;
+	fullData.tickNumber = tickNumber;
+	fullData.credits = credits;
+	fullData.threat = previousThreatLevel;
+
+	return btoa(JSON.stringify(fullData));
+}
+
+function importData(data) {
+	try {
+		const packedData = JSON.parse(atob(data));
+		console.log(packedData)
+		stations.splice(0, stations.length);
+		for (let i = 0; i < packedData.stations.length; i++) {
+			const station = packedData.stations[i];
+			addStation(new Station(
+				station.name,
+				station.revenue,
+				station.unrest,
+				station.createdOn,
+				station.upgrades,
+				false,false,0
+			), false, false);
+		}
+
+		stationsBought = packedData.stationAmount
+		stationPrice = packedData.stationPrice
+		capacityPrice = packedData.capacityPrice
+		tickNumber = packedData.tickNumber
+		credits = packedData.credits
+		previousThreatLevel = packedData.previousThreatLevel
+
+		document.getElementById("stationsAmount").innerHTML = `${stationsBought}/${maxStations}`
+		document.getElementById("capacityPrice").innerHTML = `(${capacityPrice})`
+		document.getElementById("buyStation").innerHTML = `Buy Station (${stationPrice})`
+		document.getElementById("stationsAmount").innerHTML = `${stationsBought}/${maxStations}`
+	} catch (e) {
+		console.error(e)
+	}
+}
+
+function addStation(station, sound=true, disableButton=true) {
 	stations.push(station);
 	const div = document.createElement("div")
 	div.classList.add('station');
@@ -41,16 +99,20 @@ function addStation(station) {
 	<p class="station_name">Name: ${station.name}</p>
 	<p class="station_revenue">Revenue: ${station.revenue}</p>
 	<p class="station_unrest">Unrest: ${station.unrest}</p>
-	<p class="station_shuttle">Emergency Shuttle Status: ${station.getShuttleStatus()}</p>
-	`
+	` // Add emergency shuttle status WYCI
+	// <p class="station_shuttle">Emergency Shuttle Status: ${station.getShuttleStatus()}</p>
 	document.getElementById("stations").appendChild(div)
 	div.id = station.createdOn
 	
-	document.getElementById("buyStation").disabled = true
-	setTimeout(function(){
-		document.getElementById("buyStation").disabled = false
-	}, 5000)
-	welcome.play();
+	if (disableButton) {
+		document.getElementById("buyStation").disabled = true
+		setTimeout(function(){
+			document.getElementById("buyStation").disabled = false
+		}, 5000)
+	}
+	if (sound) {
+		try { welcome.play(); } catch {}
+	}
 }
 
 function generateStationName() {
@@ -79,5 +141,17 @@ window.addEventListener('load', function () {
 	addCredits(STARTING_CREDITS);
 	tick();
 
+	if (localStorage.getItem("nt_sim_data") == null) {
+		localStorage.setItem("nt_sim_data", exportData());
+		console.log("Created new data.")
+	} else {
+		importData(localStorage.getItem("nt_sim_data"))
+		console.log("Imported data.")
+	}
+
 	console.log("Game initialized.")
 })
+
+console.log('%cHeh. A snooper. Go check out the source code instead of using addCredits(), skid.', 'font-size: 32px; text-shadow: -5px -5px 0 #0019FF, 5px -5px 0 #0019FF, -5px 5px 0 #0019FF, 5px 5px 0 #0019FF;');
+console.log('%chttps://github.com/2G2C/nanotrasen-simulator', 'font-size: 16px; text-shadow: -5px -5px 0 #0019FF, 5px -5px 0 #0019FF, -5px 5px 0 #0019FF, 5px 5px 0 #0019FF;');
+console.log()

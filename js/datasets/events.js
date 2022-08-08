@@ -28,7 +28,7 @@ class EnemyCommunicationIntercepted extends Event {
 
 	run(station){
 		addEventLog(this.message, station, "#0000aa")
-		station.addUnrest(20);
+		station.addUnrest(25);
 		intercept.play();
 	}
 }
@@ -51,7 +51,7 @@ class ThiefDetected extends Event {
 
 	run(station) {
 		addEventLog(this.message, station, "#aa0000")
-		station.addUnrest(10);
+		station.addUnrest(15);
 	}
 }
 
@@ -74,7 +74,7 @@ class Rumors extends Event {
 
 	run(station) {
 		addEventLog(this.message, station, "#aa0000")
-		station.addUnrest(-40);
+		station.addUnrest(-45);
 	}
 }
 
@@ -85,7 +85,7 @@ class LingRumor extends Event {
 
 	run(station) {
 		addEventLog(this.message, station, "#aa0000")
-		station.addUnrest(-40);
+		station.addUnrest(-35);
 	}
 }
 
