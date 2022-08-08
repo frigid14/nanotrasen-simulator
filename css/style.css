@@ -4,19 +4,19 @@ body {
 	font-family: 'Times New Roman', serif;
 }
 
-div {
+.station {
 	outline: 5px dashed black;
 	max-width: 16rem;
 	padding: 1px;
 }
 
-details {
-	/* padding: rem; */
-	/* margin: 5rem; */
-	border: 5rem;
+#stations {
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
 }
 
-details div {
-	padding: 1rem;
+.station {
 	margin: 1rem;
+	padding: 1rem;
 }
