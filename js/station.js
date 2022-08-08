@@ -61,4 +61,17 @@ class Station {
 		}
 		return "Central Command"
 	}
+
+	export() {
+		return {
+			name: this.name,
+			revenue: this.revenue,
+			unrest: this.unrest,
+			upgrades: this.upgrades,
+			shuttleSent: this.shuttleSent,
+			ertSent: this.booleans.ertSent,
+			decomissioned: this.booleans.decomissioned,
+			tickCreated: this.createdOn
+		}
+	}
 }
