@@ -80,7 +80,7 @@ function importData(data) {
 		capacityPrice = packedData.capacityPrice
 		tickNumber = packedData.tickNumber
 		credits = packedData.credits
-		previousThreatLevel = packedData.previousThreatLevel
+		previousThreatLevel = packedData.threat
 
 		document.getElementById("stationsAmount").innerHTML = `${stationsBought}/${maxStations}`
 		document.getElementById("capacityPrice").innerHTML = `(${capacityPrice})`
