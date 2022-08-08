@@ -33,7 +33,7 @@ class Station {
 
 		div.getElementsByClassName("station_revenue")[0].innerHTML = `Revenue: ${this.revenue}`
 		div.getElementsByClassName("station_unrest")[0].innerHTML = `Unrest: ${this.unrest}`
-		div.getElementsByClassName("station_shuttle")[0].innerHTML = `Emergency Shuttle Status: ${this.getShuttleStatus()}`
+		// div.getElementsByClassName("station_shuttle")[0].innerHTML = `Emergency Shuttle Status: ${this.getShuttleStatus()}`
 	}
 
 	addRevenue(revenue) {

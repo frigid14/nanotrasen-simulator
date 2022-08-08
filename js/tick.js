@@ -9,4 +9,8 @@ function tick() {
 	}
 
 	if (tickNumber % 150 === 0)	runEvent();
+	if (tickNumber % 500 === 0)	{
+		localStorage.setItem("nt_sim_data", exportData());
+		console.log("Autosaved.")
+	}
 }
