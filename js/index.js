@@ -36,6 +36,7 @@ function buyStationCapacity() {
 function addStation(station) {
 	stations.push(station);
 	const div = document.createElement("div")
+	div.classList.add('station');
 	div.innerHTML = `
 	<p class="station_name">Name: ${station.name}</p>
 	<p class="station_revenue">Revenue: ${station.revenue}</p>

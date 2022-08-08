@@ -20,15 +20,19 @@
 	<h1>Nanotrasen Simulator</h1>
 	<p id="note">You are an AI trained to manage the entirety of Nanotrasen. This is a simulation of Nanotrasen that is 99.99% accurate.</p>
 	<p>Credits: <span id="credits"></span></p>
-	<h2>Shop</h2>
+  <h2>Shop</h2>
 	<button id="buy_station_capacity" onclick="buyStationCapacity()">More Station Capacity <span id="capacityPrice">5000</span></button><br><br>
-	<details id="stations">
-		<summary>Stations (<span id="stationsAmount">0/5</span>)</summary>
-		<button onclick="buyStation()" id="buyStation">Buy Station</button>
-	</details><br>
-	<details id="events" open>
-		<summary>Events</summary>
-		<p style="color: gray;">There seems to be nothing happening currently...</p>
-	</details=><br>
+	<div class="content">
+		<details id="stationcontent">
+			<summary>Stations (<span id="stationsAmount">0/5</span>)</summary>
+			<button onclick="buyStation()" id="buyStation">Buy Station</button>
+			<div id="stations">
+			</div>
+		</div><br>
+		<details id="events" open>
+			<summary>Events</summary>
+			<p style="color: gray;">There seems to be nothing happening currently...</p>
+		</div><br>
+	</div>
 </body>
 </html>
