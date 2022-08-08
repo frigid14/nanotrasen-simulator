@@ -1,3 +1,6 @@
+/**
+ * Station class.
+ */
 class Station {
 	name = "Station Station"
 	revenue = 100
