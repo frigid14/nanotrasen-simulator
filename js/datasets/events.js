@@ -1,6 +1,6 @@
 class ThiefCaughtFail extends Event {
 	name = "Thief";
-	message = "A thief has been caught on (STATION_NAME), but they're attempts were futile! Civil unrest has decreased."
+	message = "A thief has been caught on (STATION_NAME), but their attempts were futile! Civil unrest has decreased."
 	threat = 10;
 
 	run(station) {
@@ -163,7 +163,7 @@ class NuclearEmergencyFailure extends Event {
 
 class NuclearEmergencySuccess extends Event {
 	name = "Successful Nuclear Operation"
-	message = "A team of nuclear operatives have successfully detonated the nuclear fission device on (STATION-NAME). You were able to rebuild it but with a cost."
+	message = "A team of nuclear operatives have successfully detonated the nuclear fission device on (STATION_NAME). You were able to rebuild it but with a cost."
 	threat = 100;
 
 	run(station) {

@@ -1,9 +1,10 @@
 const STARTING_CREDITS = 1000
-const MAX_STATIONS = 5
-const stations = []
+const stations = [];
+let maxStations = 5;
 let stationsBought = 0;
 let credits = 0 //DO NOT MODIFY
 let stationPrice = 1000;
+let capacityPrice = 5000;
 
 /**
  * Adds an integer amount of credits
@@ -18,6 +19,17 @@ function addCredits(credits_added) {
 		document.getElementById("credits").style.color = "#ff0000"
 	} else {
 		document.getElementById("credits").style.color = "#000000"
+	}
+}
+
+function buyStationCapacity() {
+	if (credits >= capacityPrice) {
+		addEventLog(`Nanotrasen purchased extra station capacity for ${stationPrice} credits.`, new Station("", 0,0,0,[]), "#00aa00")
+		addCredits(-capacityPrice)
+		maxStations++;
+		capacityPrice = Math.floor(capacityPrice *= 1.75);
+		document.getElementById("stationsAmount").innerHTML = `${stationsBought}/${maxStations}`
+		document.getElementById("capacityPrice").innerHTML = `(${capacityPrice})`
 	}
 }
 
@@ -50,7 +62,7 @@ function generateStationName() {
 }
 
 function buyStation() {
-	if (credits >= stationPrice && stationsBought < MAX_STATIONS) {
+	if (credits >= stationPrice && stationsBought < maxStations) {
 		const station = new Station(generateStationName(), 150, 0, tickNumber, []);
 		addStation(station)
 		addEventLog(`Nanotrasen purchased (STATION_NAME) for ${stationPrice} credits.`, station, "#00aa00")
@@ -58,7 +70,7 @@ function buyStation() {
 		stationPrice = Math.floor(stationPrice *= 1.75);
 		document.getElementById("buyStation").innerHTML = `Buy Station (${stationPrice})`
 		stationsBought++;
-		document.getElementById("stationsAmount").innerHTML = `${stationsBought}/${MAX_STATIONS}`
+		document.getElementById("stationsAmount").innerHTML = `${stationsBought}/${maxStations}`
 	}
 }
 
