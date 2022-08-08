@@ -12,10 +12,15 @@ class Event {
 }
 
 function addEventLog(message, station, color) {
+	const id = (Math.random() + 1).toString(36).substring(7);
 	let paragraph = document.createElement("p");
+
 	message = message.replace("(STATION_NAME)", `<strong>${station.name}</strong>`)
-	paragraph.innerHTML = message;
+	paragraph.innerHTML = `<button onclick="document.getElementById('${id}').parentNode.removeChild(document.getElementById('${id}'))">Close event</button> ${message}`;
+
 	paragraph.style.color = color
+	paragraph.id = id;
+
 	document.getElementById("events").prepend(paragraph)
 }
 
