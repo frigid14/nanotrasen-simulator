@@ -110,6 +110,15 @@ function importData(data) {
 }
 
 /**
+ * Returns the station index (stations[index]).
+ * @param {Number} tickN 
+ * @returns station index, else -1
+ */
+function getStationByTick(tickN) {
+	return stations.findIndex(station => station.createdOn == tickN);
+}
+
+/**
  * Adds a station to `stations` and adds the corrensponding HTML div
  * @param {Station} station 
  * @param {boolean} sound 
@@ -124,6 +133,7 @@ function addStation(station, sound=true, disableButton=true) {
 	<p class="station_revenue">Revenue: ${station.revenue}</p>
 	<p class="station_unrest">Unrest: ${station.unrest}</p>
 	<p class="station_uptime">Uptime: ${station.uptime}</p>
+	<button onclick="getStationByTick(${station.createdOn.toString()}).sellStation()" class="station_sell">Sell Station</button>
 	` // Add emergency shuttle status WYCI
 	// <p class="station_shuttle">Emergency Shuttle Status: ${station.shuttleStatus}</p>
 	document.getElementById("stations").appendChild(div)

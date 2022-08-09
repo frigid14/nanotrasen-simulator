@@ -48,7 +48,7 @@ class Station {
 		// And the div.
 
 		const div = document.getElementById(this.createdOn.toString());
-		const station = stations.findIndex(station => station.createdOn == this.createdOn);
+		const station = getStationByTick(this.createdOn);
 		
 		if (div != null) {
 			div.remove();			
@@ -59,6 +59,15 @@ class Station {
 
 		stationsBought--;
 		stations = stations.slice(station, station + 1);
+	}
+
+	sellStation() {
+		if (credits > this.revenue) {
+			addCredits(-credits);
+			this.destroy();
+		}
+		addCredits(Math.floor(credits / 2));
+		this.destroy();
 	}
 
 	addRevenue(revenue) {
