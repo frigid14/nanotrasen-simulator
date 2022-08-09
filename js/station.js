@@ -34,6 +34,9 @@ class Station {
 		if ((this.createdOn - tickNumber * -1) % 10 === 0) {
 			if (this.requireUpkeep) addCredits(-Math.floor(this.revenue / 4));
 		}
+		div.getElementsByClassName("station_revenue")[0].innerHTML = `Revenue: ${this.revenue}`
+		div.getElementsByClassName("station_unrest")[0].innerHTML = `Unrest: ${this.unrest}`
+		div.getElementsByClassName("station_uptime")[0].innerHTML = `Uptime: ${this.uptime}`
 
 // div.getElementsByClassName("station_shuttle")[0].innerHTML = `Emergency Shuttle Status: ${this.shuttleStatus}`
 	}
@@ -45,7 +48,6 @@ class Station {
 		// And the div.
 
 		const div = document.getElementById(this.createdOn.toString());
-		const station = getStationByTick(this.createdOn);
 		
 		if (div != null) {
 			div.remove();			
