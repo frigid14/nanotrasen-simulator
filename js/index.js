@@ -133,7 +133,7 @@ function addStation(station, sound=true, disableButton=true) {
 	<p class="station_revenue">Revenue: ${station.revenue}</p>
 	<p class="station_unrest">Unrest: ${station.unrest}</p>
 	<p class="station_uptime">Uptime: ${station.uptime}</p>
-	<button onclick="getStationByTick(${station.createdOn.toString()}).sellStation()" class="station_sell">Sell Station</button>
+	<button onclick="stations[getStationByTick('${station.createdOn}')].sellStation()" class="station_sell">Sell Station</button>
 	` // Add emergency shuttle status WYCI
 	// <p class="station_shuttle">Emergency Shuttle Status: ${station.shuttleStatus}</p>
 	document.getElementById("stations").appendChild(div)
