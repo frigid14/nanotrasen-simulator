@@ -14,6 +14,24 @@ class Rumor extends Event {
 	}
 }
 
+class AntagMajor extends Event {
+	name = "Antag Major"
+	message = "So spooky."
+	color = "#aa0000"
+	threat = 80
+
+	changed = {
+		unrest: 50,
+		revenue: -500,
+		credits: -1500
+	}
+
+	minimum = {
+		uptime: 180,
+		crew: 30
+	}
+}
+
 class ThiefCaughtFail extends Event {
 	name = "Thief";
 	message = "A thief has been caught on (STATION_NAME), but their attempts to steal were futile! Civil unrest has decreased."
@@ -158,6 +176,7 @@ class InsanityWave extends Event {
 	name = "Insanity Wave";
 	message = "A bluespace anomaly has triggered, causing crewmembers aboard (STATION_NAME) to see nightmares. Civil unrest increased."
 	threat = 50;
+	color = "#aa0000"
 	
 	changed = {
 		unrest: 50
@@ -192,15 +211,10 @@ class NuclearEmergencyFailure extends Event {
 	}
 }
 
-class NuclearEmergencySuccess extends Event {
+class NuclearEmergencySuccess extends AntagMajor {
 	name = "Successful Nuclear Operation"
 	message = "A team of nuclear operatives have successfully detonated the nuclear fission device on (STATION_NAME). You were able to rebuild it but with a cost."
 	threat = 100;
-
-	run(station) {
-		addEventLog(this.message, station, "#aa0000")
-		station.addRevenue(-50000);
-	}
 }
 
 const eventPool = [
@@ -212,7 +226,7 @@ const eventPool = [
 	new ThiefCaughtFail(),
 	new EnemyCommunicationIntercepted(),
 	new PlasmaBubble(),
-	new Rumors(),
+	new NTRumors(),
 	new LingRumor(),
 	new AIActivity(),
 	new WizardRumors(),
