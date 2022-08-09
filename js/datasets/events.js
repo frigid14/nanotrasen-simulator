@@ -168,7 +168,7 @@ class NuclearEmergencySuccess extends Event {
 
 	run(station) {
 		addEventLog(this.message, station, "#aa0000")
-		stations.addRevenue(-50000);
+		station.addRevenue(-50000);
 	}
 }
 
