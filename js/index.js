@@ -1,5 +1,5 @@
 const STARTING_CREDITS = 1000
-const stations = [];
+var stations = []; // I apologize deeply for the sin I have comitted.
 let maxStations = 5;
 let stationsBought = 0;
 let credits = 0 //DO NOT MODIFY

@@ -11,7 +11,8 @@ class Station {
 		ertSent: false,
 		decomissioned: false,
 	}
-	createdOn = null;
+	createdOn = 0;
+	requireUpkeep = true;
 
 	constructor(name,revenue,unrest,tickCreated,upgrades,ertSent,decomissioned,shuttleSent) {
 		this.name = name
@@ -31,13 +32,33 @@ class Station {
 			addCredits(this.revenue);
 		}
 		if ((this.createdOn - tickNumber * -1) % 10 === 0) {
-			addCredits(-Math.floor(this.revenue / 4));
+			if (this.requireUpkeep) addCredits(-Math.floor(this.revenue / 4));
 		}
 
 		div.getElementsByClassName("station_revenue")[0].innerHTML = `Revenue: ${this.revenue}`
 		div.getElementsByClassName("station_unrest")[0].innerHTML = `Unrest: ${this.unrest}`
 		div.getElementsByClassName("station_uptime")[0].innerHTML = `Uptime: ${this.uptime}`
 		// div.getElementsByClassName("station_shuttle")[0].innerHTML = `Emergency Shuttle Status: ${this.shuttleStatus}`
+	}
+
+	destroy() {
+		// In what world must you destroy a station?
+		// Do not use if you are decomissioning/selling a station.
+		// This is the main thing that destroys the Station instance
+		// And the div.
+
+		const div = document.getElementById(this.createdOn.toString());
+		const station = stations.findIndex(station => station.createdOn == this.createdOn);
+		
+		if (div != null) {
+			div.remove();			
+		}
+		//if (station != null) station.remove() // Station shouldn't even be null unless EU is tinkering with it.
+		this.revenue = 0;
+		this.requireUpkeep = false;
+
+		stationsBought--;
+		stations = stations.slice(station, station + 1);
 	}
 
 	addRevenue(revenue) {
