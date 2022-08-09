@@ -7,7 +7,20 @@ let previousThreatLevel = 20;
 class Event {
 	name = "Null";
 	message = "Nothing. What did you expect."
-	threat = null;
+	threat = 0;
+
+	changed = {
+		credits: 0,
+		unrest: 0,
+		crew: 0
+	}
+
+	minimum = {
+		credits: 0,
+		unrest: 0,
+		uptime: 0,
+		crew: 0
+	}
 
 	run(station) {}
 }
