@@ -124,7 +124,7 @@ function addStation(station, sound=true, disableButton=true) {
 	<p class="station_revenue">Revenue: ${station.revenue}</p>
 	<p class="station_unrest">Unrest: ${station.unrest}</p>
 	` // Add emergency shuttle status WYCI
-	// <p class="station_shuttle">Emergency Shuttle Status: ${station.getShuttleStatus()}</p>
+	// <p class="station_shuttle">Emergency Shuttle Status: ${station.shuttleStatus}</p>
 	document.getElementById("stations").appendChild(div)
 	div.id = station.createdOn
 	

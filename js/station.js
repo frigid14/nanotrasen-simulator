@@ -36,7 +36,7 @@ class Station {
 
 		div.getElementsByClassName("station_revenue")[0].innerHTML = `Revenue: ${this.revenue}`
 		div.getElementsByClassName("station_unrest")[0].innerHTML = `Unrest: ${this.unrest}`
-		// div.getElementsByClassName("station_shuttle")[0].innerHTML = `Emergency Shuttle Status: ${this.getShuttleStatus()}`
+		// div.getElementsByClassName("station_shuttle")[0].innerHTML = `Emergency Shuttle Status: ${this.shuttleStatus}`
 	}
 
 	addRevenue(revenue) {
@@ -56,13 +56,17 @@ class Station {
 		}
 	}
 
-	getShuttleStatus() {
+	get shuttleStatus() {
 		if (this.shuttleSent == 1) {
 			return "Bluespace"
 		}else if (this.shuttleSent) {
 			return "Docked"
 		}
 		return "Central Command"
+	}
+
+	get uptime() {
+		return Math.floor(((this.createdOn - tickNumber) * -1) / 10);
 	}
 
 	export() {
