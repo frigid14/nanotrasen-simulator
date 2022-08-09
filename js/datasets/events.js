@@ -16,7 +16,7 @@ class Rumor extends Event {
 
 class ThiefCaughtFail extends Event {
 	name = "Thief";
-	message = "A thief has been caught on (STATION_NAME), but their attempts were futile! Civil unrest has decreased."
+	message = "A thief has been caught on (STATION_NAME), but their attempts to steal were futile! Civil unrest has decreased."
 	color = "#00aa00";
 	threat = 10;
 
@@ -32,13 +32,19 @@ class ThiefCaughtFail extends Event {
 
 class ThiefCaughtSucceed extends Event {
 	name = "Thief";
-	message = "A thief has been caught on (STATION_NAME), but they got away! Revenue decreased, Civil unrest has increased."
+	message = "A thief has been caught on (STATION_NAME), but they got away! Credits decreased, Civil unrest has increased."
+	color = "#aa0000"
 	threat = 20;
 
-	run(station) {
-		addEventLog(this.message, station, "#aa0000")
-		station.addUnrest(10);
-		station.addRevenue(-50);
+	changed = {
+		unrest: 10,
+		revenue: -50,
+		credits: -150
+	}
+
+	minimum = {
+		uptime: 30,
+		crew: 40
 	}
 }
 
@@ -47,9 +53,17 @@ class EnemyCommunicationIntercepted extends Event {
 	message = "Attention, enemy communication intercepted. Security level elevated. Civil unrest increased."
 	threat = 20
 
+	changed = {
+		unrest: 25
+	}
+
+	minimum = {
+		uptime: 50,
+		crew: 20
+	}
+
 	run(station){
 		addEventLog(this.message, station, "#0000aa")
-		station.addUnrest(25);
 		intercept.play();
 	}
 }
@@ -58,10 +72,16 @@ class PlasmaBubble extends Event {
 	name = "Plasma Bubble"
 	message = "(STATION_NAME) has entered an area of space with more plasma than the last, increased revenue!"
 	threat = 20
+	color = "#ff00ff"
 
-	run(station){
-		addEventLog(this.message, station, "#ff00ff")
-		station.addRevenue(50);
+	changed = {
+		revenue: 50,
+		credits: 500
+	}
+
+	minimum = {
+		uptime: 15,
+		crew: 10
 	}
 }
 
@@ -70,9 +90,13 @@ class ThiefDetected extends Event {
 	message = "A thief has been detected on (STATION_NAME), civil unrest has increased."
 	threat = 30;
 
-	run(station) {
-		addEventLog(this.message, station, "#aa0000")
-		station.addUnrest(15);
+	changed = {
+		unrest: 15
+	}
+
+	minimum = {
+		uptime: 30,
+		crew: 40
 	}
 }
 
@@ -81,76 +105,62 @@ class TraitorDetained extends Event {
 	message = "A syndicate agent has been detected on (STATION_NAME), and has been properly detained. But not without decreasing the station revenue! Civil Unrest decreased."
 	threat = 30;
 
-	run(station) {
-		addEventLog(this.message, station, "#aa0000")
-		station.addRevenue(-25);
-		station.addUnrest(-10);
+	changed = {
+		unrest: 15,
+		revenue: -25
+	}
+
+	minimum = {
+		uptime: 60,
+		crew: 50
 	}
 }
 
-class Rumors extends Event {
+class NTRumors extends Rumor {
 	name = "Rumors";
 	message = "Rumors about Nanotrasen decomissioning (STATION_NAME) have spread, civil unrest increased."
 	threat = 40;
 
-	run(station) {
-		addEventLog(this.message, station, "#aa0000")
-		station.addUnrest(-45);
+	changed = {
+		unrest: -25
+	}
+
+	minimum = {
+		uptime: 80
 	}
 }
 
-class LingRumor extends Event {
+class LingRumor extends Rumor {
 	name = "Changeling Rumors";
 	message = "Rumors about changelings aboard (STATION_NAME) have spread, civil unrest increased."
 	threat = 40;
-
-	run(station) {
-		addEventLog(this.message, station, "#aa0000")
-		station.addUnrest(-35);
-	}
 }
 
-class AIActivity extends Event {
+class AIActivity extends Rumor {
 	name = "Disturbing AI Activity";
 	message = "Crewmembers onboard (STATION_NAME) have noticed odd and disturbing AI activity, civil unrest increased."
 	threat = 40;
-
-	run(station) {
-		addEventLog(this.message, station, "#aa0000")
-		station.addUnrest(-40);
-	}
 }
 
-class WizardRumors extends Event {
+class WizardRumors extends Rumor {
 	name = "Wizard Rumors";
 	message = "Rumors about the Wizard Federation attacking (STATION_NAME) has spread, civil unrest increased."
 	threat = 50;
-
-	run(station) {
-		addEventLog(this.message, station, "#aa0000")
-		station.addUnrest(-50);
-	}
 }
 
-class ForeignLifeformsMinor extends Event {
+class ForeignLifeformsMinor extends Rumor {
 	name = "Foreign Lifeforms";
 	message = "Foreign Lifeforms detected on (STATION_NAME), but the AI was able to vent the lifeforms before they did any harm. Civil unrest increased."
 	threat = 50;
-
-	run(station) {
-		addEventLog(this.message, station, "#aa0000")
-		station.addUnrest(-50);
-	}
 }
 
 class InsanityWave extends Event {
 	name = "Insanity Wave";
 	message = "A bluespace anomaly has triggered, causing crewmembers aboard (STATION_NAME) to see nightmares. Civil unrest increased."
 	threat = 50;
-
-	run(station) {
-		addEventLog(this.message, station, "#aa0000")
-		station.addUnrest(-50);
+	
+	changed = {
+		unrest: 50
 	}
 }
 
