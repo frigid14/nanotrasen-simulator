@@ -7,6 +7,7 @@ let previousThreatLevel = 20;
 class Event {
 	name = "Null";
 	message = "Nothing. What did you expect."
+	color = "#000000"
 	threat = 0;
 
 	changed = {
@@ -22,7 +23,7 @@ class Event {
 		crew: 0
 	}
 
-	run(station) {}
+	run(station) {addEventLog(this.message, station, this.color)}
 }
 
 /**

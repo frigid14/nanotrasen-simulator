@@ -1,11 +1,32 @@
+class Rumor extends Event {
+	name = "Rumor"
+	message = "Rumors about bullshit."
+	color = "#aa0000"
+	threat = 30
+
+	changed = {
+		unrest: 20
+	}
+
+	minimum = {
+		uptime: 50,
+		crew: 40
+	}
+}
+
 class ThiefCaughtFail extends Event {
 	name = "Thief";
 	message = "A thief has been caught on (STATION_NAME), but their attempts were futile! Civil unrest has decreased."
+	color = "#00aa00";
 	threat = 10;
 
-	run(station) {
-		addEventLog(this.message, station, "#00aa00")
-		station.addUnrest(-10);
+	changed = {
+		unrest: -10
+	}
+
+	minimum = {
+		uptime: 30,
+		crew: 40
 	}
 }
 
