@@ -62,7 +62,7 @@ class Station {
 	}
 
 	sellStation() {
-		addEventLog(`Nanotrasne sold (STATION_NAME) ${credits>this.revenue ? "at a profit" : "at a loss"}.`, station, `#000000`)
+		addEventLog(`Nanotrasen sold (STATION_NAME) ${credits<this.revenue ? "at a profit" : "at a loss"}.`, this, `#000000`)
 		if (credits > this.revenue) {
 			addCredits(-credits);
 			this.destroy();
