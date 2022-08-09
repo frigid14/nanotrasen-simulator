@@ -35,10 +35,7 @@ class Station {
 			if (this.requireUpkeep) addCredits(-Math.floor(this.revenue / 4));
 		}
 
-		div.getElementsByClassName("station_revenue")[0].innerHTML = `Revenue: ${this.revenue}`
-		div.getElementsByClassName("station_unrest")[0].innerHTML = `Unrest: ${this.unrest}`
-		div.getElementsByClassName("station_uptime")[0].innerHTML = `Uptime: ${this.uptime}`
-		// div.getElementsByClassName("station_shuttle")[0].innerHTML = `Emergency Shuttle Status: ${this.shuttleStatus}`
+// div.getElementsByClassName("station_shuttle")[0].innerHTML = `Emergency Shuttle Status: ${this.shuttleStatus}`
 	}
 
 	destroy() {
@@ -58,7 +55,7 @@ class Station {
 		this.requireUpkeep = false;
 
 		stationsBought--;
-		stations = stations.slice(station, station + 1);
+		stations = stations.filter((element) => {return this != element})
 	}
 
 	sellStation() {
