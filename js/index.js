@@ -1,5 +1,5 @@
 const STARTING_CREDITS = 1000
-const stations = [];
+var stations = []; // I apologize deeply for the sin I have comitted.
 let maxStations = 5;
 let stationsBought = 0;
 let credits = 0 //DO NOT MODIFY
@@ -45,6 +45,7 @@ function exportData() {
 		stationAmount: 0,
 		stationPrice: 0,
 		capacityPrice: 0,
+		maxStations: 0,
 		tickNumber: 0, 
 		credits: 0, 
 		threat: 20,
@@ -60,7 +61,8 @@ function exportData() {
 	fullData.capacityPrice = capacityPrice;
 	fullData.tickNumber = tickNumber;
 	fullData.credits = credits;
-	fullData.threat = previousThreatLevel;
+	fullData.maxStations = maxStations;
+	fullData.threat = threatLevel;
 
 	return btoa(JSON.stringify(fullData));
 }
@@ -87,6 +89,7 @@ function importData(data) {
 				station.unrest,
 				station.createdOn,
 				station.upgrades,
+				station.ppc,
 				false,false,0
 			), false, false);
 		}
@@ -96,7 +99,8 @@ function importData(data) {
 		capacityPrice = packedData.capacityPrice
 		tickNumber = packedData.tickNumber
 		credits = packedData.credits
-		previousThreatLevel = packedData.threat
+		threatLevel = packedData.threat
+		maxStations = packedData.maxStations
 
 		document.getElementById("stationsAmount").innerHTML = `${stationsBought}/${maxStations}`
 		document.getElementById("capacityPrice").innerHTML = `(${capacityPrice})`
@@ -107,6 +111,15 @@ function importData(data) {
 		console.error(e);
 		return 1;
 	}
+}
+
+/**
+ * Returns the station index (stations[index]).
+ * @param {Number} tickN 
+ * @returns station index, else -1
+ */
+function getStationByTick(tickN) {
+	return stations.findIndex(station => station.createdOn == tickN);
 }
 
 /**
@@ -123,8 +136,22 @@ function addStation(station, sound=true, disableButton=true) {
 	<p class="station_name">Name: ${station.name}</p>
 	<p class="station_revenue">Revenue: ${station.revenue}</p>
 	<p class="station_unrest">Unrest: ${station.unrest}</p>
+	<p class="station_uptime">Uptime: ${station.uptime}</p>
+	<p class="station_crew">Crew: 69420</p><br>
+	
+	<!-- holy shit button hell -->
+	<button onclick="stations[getStationByTick('${station.createdOn}')].sellStation()" class="station_sell">Sell Station</button><br>
+
+	<button onclick="stations[getStationByTick('${station.createdOn}')].buyCrew(1)" class="station_crewadd">+</button> Crew (${station.crewmemberPrice}C) 
+	<button onclick="stations[getStationByTick('${station.createdOn}')].addCrew(-1)" class="station_crewremove">-</button><br>
+	
+	<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember+= 10;" class="station_adddPPC">++</button>
+	<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember++;" class="station_addPPC">+</button>
+	<span class="station_ppc">CPPC: 0 | DPPC: 0</span>
+	<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember--;" class="station_remPPC">-</button>
+	<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember-= 10;" class="station_remmPPC">--</button>
 	` // Add emergency shuttle status WYCI
-	// <p class="station_shuttle">Emergency Shuttle Status: ${station.getShuttleStatus()}</p>
+	// <p class="station_shuttle">Emergency Shuttle Status: ${station.shuttleStatus}</p>
 	document.getElementById("stations").appendChild(div)
 	div.id = station.createdOn
 	
@@ -164,7 +191,7 @@ function buyStation() {
 	// check if we have enough credits and we havent hit the maxcap
 	if (credits >= stationPrice && stationsBought < maxStations) {
 		// create a new station, this'll be appended
-		const station = new Station(generateStationName(), 150, 0, tickNumber, []);
+		const station = new Station(generateStationName(), 100, 0, tickNumber, []);
 
 		addStation(station) // add the station+renders
 		addEventLog(`Nanotrasen purchased (STATION_NAME) for ${stationPrice} credits.`, station, "#00aa00")

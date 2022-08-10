@@ -4,3 +4,10 @@ const shuttleRecall = new Audio("assets/audio/sound_ai_default_shuttlerecalled.o
 const shuttleDock = new Audio("assets/audio/sound_ai_default_shuttledock.ogg");
 const intercept = new Audio("assets/audio/sound_ai_default_intercept.ogg");
 const spanomalies = new Audio("assets/audio/sound_ai_default_spanomalies.ogg");
+
+const cultist = new Audio("assets/audio/sound_ambience_antag_bloodcult.ogg");
+const malfai = new Audio("assets/audio/sound_ambience_antag_malf.ogg");
+const operatives = new Audio("assets/audio/sound_ambience_antag_ops.ogg");
+const wizards = new Audio("assets/audio/sound_ambience_antag_ragesmages.ogg");
+
+const explosion = new Audio("assets/audio/sound_effects_explosion1.ogg");
