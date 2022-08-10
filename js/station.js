@@ -38,6 +38,7 @@ class Station {
 		div.getElementsByClassName("station_revenue")[0].innerHTML = `Revenue: ${this.revenue}`
 		div.getElementsByClassName("station_unrest")[0].innerHTML = `Unrest: ${this.unrest}`
 		div.getElementsByClassName("station_uptime")[0].innerHTML = `Uptime: ${this.uptime}`
+		div.getElementsByClassName("station_crew")[0].innerHTML = `Crew: ${this.crew} <img src="assets/images/person.svg" style="width: 18px; vertical-align: middle;" alt="person icon"></img>`
 
 // div.getElementsByClassName("station_shuttle")[0].innerHTML = `Emergency Shuttle Status: ${this.shuttleStatus}`
 	}

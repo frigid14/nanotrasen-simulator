@@ -83,6 +83,11 @@ function runEvent() {
 				station.addUnrest(parseInt(event.changedUnrest));
 				// Soon :tm:
 				// station.addCrew(event.changedCrew);
+
+				// Run the function in the class allowing for some custom
+				// javascript, defaults to an addEventLog.
+				// Used by events such as NuclearOperativesSuccess
+				// to destroy the station, or do something else with it
 				event.run(station);
 
 				console.log(`Event "${event.name}" has been run.`)
