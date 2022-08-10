@@ -199,6 +199,8 @@ class BloodCultSuccess extends AntagMajor {
 	message = " Space time anomalies have been detected on (STATION_NAME). Nar'Sie has risen. You are forced to abandon the station before any more damage can be done."
 	threat = 100;
 
+	minimumCrew = 15;
+
 	run(station) {
 		spanomalies.play()
 		addEventLog(this.message, station, this.color);
