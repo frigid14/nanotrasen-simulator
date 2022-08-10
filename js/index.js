@@ -60,7 +60,7 @@ function exportData() {
 	fullData.capacityPrice = capacityPrice;
 	fullData.tickNumber = tickNumber;
 	fullData.credits = credits;
-	fullData.threat = previousThreatLevel;
+	fullData.threat = threatLevel;
 
 	return btoa(JSON.stringify(fullData));
 }
@@ -96,7 +96,7 @@ function importData(data) {
 		capacityPrice = packedData.capacityPrice
 		tickNumber = packedData.tickNumber
 		credits = packedData.credits
-		previousThreatLevel = packedData.threat
+		threatLevel = packedData.threat
 
 		document.getElementById("stationsAmount").innerHTML = `${stationsBought}/${maxStations}`
 		document.getElementById("capacityPrice").innerHTML = `(${capacityPrice})`

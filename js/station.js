@@ -12,6 +12,7 @@ class Station {
 		decomissioned: false,
 	}
 	createdOn = 0;
+	crew = 15000;
 	requireUpkeep = true;
 
 	constructor(name,revenue,unrest,tickCreated,upgrades,ertSent,decomissioned,shuttleSent) {

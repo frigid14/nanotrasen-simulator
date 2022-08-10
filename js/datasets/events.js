@@ -4,14 +4,10 @@ class Rumor extends Event {
 	color = "#aa0000"
 	threat = 30
 
-	changed = {
-		unrest: 20
-	}
+	changedUnrest = 20
 
-	minimum = {
-		uptime: 50,
-		crew: 40
-	}
+	minimumUptime = 50
+	minimumCrew = 40
 }
 
 class AntagMajor extends Event {
@@ -20,16 +16,12 @@ class AntagMajor extends Event {
 	color = "#aa0000"
 	threat = 80
 
-	changed = {
-		unrest: 50,
-		revenue: -500,
-		credits: -1500
-	}
+	changedUnrest = 50
+	changedRevenue = -500
+	changedCredits = -1500
 
-	minimum = {
-		uptime: 180,
-		crew: 30
-	}
+	minimumUptime = 180
+	minimumCrew = 30
 }
 
 class ThiefCaughtFail extends Event {
@@ -38,14 +30,10 @@ class ThiefCaughtFail extends Event {
 	color = "#00aa00";
 	threat = 10;
 
-	changed = {
-		unrest: -10
-	}
+	changedUnrest = -10
 
-	minimum = {
-		uptime: 30,
-		crew: 40
-	}
+	minimumUptime = 30
+	minimumCrew = 40
 }
 
 class ThiefCaughtSucceed extends Event {
@@ -54,16 +42,12 @@ class ThiefCaughtSucceed extends Event {
 	color = "#aa0000"
 	threat = 20;
 
-	changed = {
-		unrest: 10,
-		revenue: -50,
-		credits: -150
-	}
+	changedUnrest = 10
+	changedRevenue = -50
+	changedCredits = -150
 
-	minimum = {
-		uptime: 30,
-		crew: 40
-	}
+	minimumUptime = 30
+	minimumCrew = 40
 }
 
 class EnemyCommunicationIntercepted extends Event {
@@ -71,14 +55,10 @@ class EnemyCommunicationIntercepted extends Event {
 	message = "Attention, enemy communication intercepted. Security level elevated. Civil unrest increased."
 	threat = 20
 
-	changed = {
-		unrest: 25
-	}
+	changedUnrest = 25
 
-	minimum = {
-		uptime: 50,
-		crew: 20
-	}
+	minimumUptime = 50
+	minimumCrew = 20
 
 	run(station){
 		addEventLog(this.message, station, "#0000aa")
@@ -92,15 +72,11 @@ class PlasmaBubble extends Event {
 	threat = 20
 	color = "#ff00ff"
 
-	changed = {
-		revenue: 50,
-		credits: 500
-	}
+	changedRevenue = 50
+	changedCredits = 500
 
-	minimum = {
-		uptime: 15,
-		crew: 10
-	}
+	minimumUptime = 15
+	minimumCrew = 10
 }
 
 class ThiefDetected extends Event {
@@ -108,14 +84,10 @@ class ThiefDetected extends Event {
 	message = "A thief has been detected on (STATION_NAME), civil unrest has increased."
 	threat = 30;
 
-	changed = {
-		unrest: 15
-	}
+	changedUnrest = 15
 
-	minimum = {
-		uptime: 30,
-		crew: 40
-	}
+	minimumUptime = 30
+	minimumCrew = 40
 }
 
 class TraitorDetained extends Event {
@@ -123,15 +95,11 @@ class TraitorDetained extends Event {
 	message = "A syndicate agent has been detected on (STATION_NAME), and has been properly detained. But not without decreasing the station revenue! Civil Unrest decreased."
 	threat = 30;
 
-	changed = {
-		unrest: 15,
-		revenue: -25
-	}
+	changedUnrest = 15
+	changedRevenue = -25
 
-	minimum = {
-		uptime: 60,
-		crew: 50
-	}
+	minimumUptime = 60
+	minimumCrew = 50
 }
 
 class NTRumors extends Rumor {
@@ -139,13 +107,8 @@ class NTRumors extends Rumor {
 	message = "Rumors about Nanotrasen decomissioning (STATION_NAME) have spread, civil unrest increased."
 	threat = 40;
 
-	changed = {
-		unrest: -25
-	}
-
-	minimum = {
-		uptime: 80
-	}
+	changedUnrest = 25;
+	minimumUptime = 80;
 }
 
 class LingRumor extends Rumor {
@@ -178,9 +141,7 @@ class InsanityWave extends Event {
 	threat = 50;
 	color = "#aa0000"
 	
-	changed = {
-		unrest: 50
-	}
+	changedUunrest = 35
 }
 
 class BluespaceAnomaly extends Event {
@@ -213,7 +174,7 @@ class NuclearEmergencyFailure extends Event {
 
 class NuclearEmergencySuccess extends AntagMajor {
 	name = "Successful Nuclear Operation"
-	message = "A team of nuclear operatives have successfully detonated the nuclear fission device on (STATION_NAME). You were able to rebuild it but with a cost."
+	message = "A team of nuclear operatives have successfully detonated the nuclear fission device on (STATION_NAME). You havent heard from it since the unauthorized nuclear explosion alert."
 	threat = 100;
 }
 
