@@ -12,7 +12,11 @@ class Station {
 		decomissioned: false,
 	}
 	createdOn = 0;
-	crew = 15000;
+	
+	payPerCrewmember = 25;
+	desiredPPC = 25;
+	crew = 10;
+
 	requireUpkeep = true;
 
 	constructor(name,revenue,unrest,tickCreated,upgrades,ertSent,decomissioned,shuttleSent) {
@@ -30,11 +34,26 @@ class Station {
 		const div = document.getElementById(this.createdOn)
 
 		if ((this.createdOn - tickNumber * -1) % 20 === 0) {
-			addCredits(this.revenue);
+			// More crewmembers being paid well = More revenue, but more bad events
+			// Less crewmembers = Less revenue but less bad events
+			addCredits(this.revenue + this.crew * Math.floor(this.payPerCrewmember / 2));
 		}
+
 		if ((this.createdOn - tickNumber * -1) % 10 === 0) {
-			if (this.requireUpkeep) addCredits(-Math.floor(this.revenue / 4));
+			if (this.requireUpkeep) {
+				addCredits(-Math.floor(this.payPerCrewmember * this.crew));
+				if (this.payPerCrewmember < this.desiredPPC) {
+					this.addUnrest(Math.floor(Math.random() * 15) + 10);
+					addEventLog("Crewmembers aboard (STATION_NAME) believe that they aren't being paid as better as the others! Civil unrest increased.", this, "#aa0000")
+				} else {
+					addEventLog(`Nanotrasen paid ${crew} crewmembers ${this.payPerCrewmember} credits aboard (STATION_NAME). Civil unrest decreased.`, this, "#aa0000")
+					this.addUnrest(-1);
+				}
+			}
 		}
+
+		this.desiredPPC = (70 * this.crew + this.revenue)
+
 		div.getElementsByClassName("station_revenue")[0].innerHTML = `Revenue: ${this.revenue}`
 		div.getElementsByClassName("station_unrest")[0].innerHTML = `Unrest: ${this.unrest}`
 		div.getElementsByClassName("station_uptime")[0].innerHTML = `Uptime: ${this.uptime}`
@@ -87,6 +106,14 @@ class Station {
 			else this.unrest = oldUnrest
 
 			return false
+		}
+	}
+
+	addCrew(crewmembers) {
+		this.crew += crewmembers
+		if (this.crew <= 0) {
+			// What is a station without the crew to manage it?
+			this.destroy()
 		}
 	}
 

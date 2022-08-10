@@ -82,7 +82,7 @@ function runEvent() {
 				station.addRevenue(parseInt(event.changedRevenue));
 				station.addUnrest(parseInt(event.changedUnrest));
 				// Soon :tm:
-				// station.addCrew(event.changedCrew);
+				station.addCrew(event.changedCrew);
 
 				// Run the function in the class allowing for some custom
 				// javascript, defaults to an addEventLog.
