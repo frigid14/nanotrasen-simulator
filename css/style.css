@@ -6,8 +6,7 @@ body {
 
 .station {
 	outline: 5px dashed black;
-	width: 18rem;
-	height: 18rem;
+	max-width: 16rem;
 	padding: 1px;
 }
 
