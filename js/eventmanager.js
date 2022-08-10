@@ -1,4 +1,4 @@
-let previousThreatLevel = 20;
+let threatLevel = 20;
 
 /**
  * Abstract event class that all Events inherit from.
@@ -7,9 +7,20 @@ let previousThreatLevel = 20;
 class Event {
 	name = "Null";
 	message = "Nothing. What did you expect."
+	color = "#000000"
 	threat = null;
 
-	run(station) {}
+	changedCredits = 0
+	changedRevenue = 0
+	changedUnrest = 0
+	changedCrew = 0
+
+	minimumCredits = 0
+	minimumUnrest = 0
+	minimumUptime = 0
+	minimumCrew = 0
+
+	run(station) {addEventLog(this.message, station, this.color)}
 }
 
 /**
@@ -34,6 +45,26 @@ function addEventLog(message, station, color) {
 	document.getElementById("events").prepend(paragraph)
 }
 
+// thanks stack overflow.
+function shuffleArray(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
+
 /**
  * Calculates a threat level and runs the corresponding event from the `eventPool`.
  */
@@ -41,30 +72,52 @@ function runEvent() {
 	// Check if we have ANY stations at all. Stop yelling at me JS.
 	if (stations.length > 0) {
 		// Calculate threat level, either +10 or -10
-		let threatLevel = Math.floor(Math.random() * 2) == 1 ? previousThreatLevel + 10 : previousThreatLevel - 10;
+		// WHY THE FUCK IS MY THREAT LEVEL UNDEFINED?
+		// FUCK IT. IM RENAMING PREVIOUS THREAT LEVEL TO CURRENT THREAT LEVEL
+		threatLevel = parseInt(Math.floor(Math.random() * 2) == 0 ? threatLevel + 10 : threatLevel - 10);
+
+		console.log(threatLevel);
 		
 		// Clamp threatlevel
-		if (threatLevel > 100) threatLevel = 100
-		if (threatLevel < 10) threatLevel = 10
+		if (threatLevel > 100) threatLevel = 100;
+		if (threatLevel < 10) threatLevel = 10;
+                // Need to shuffle array else shit can get stuck
+                shuffleArray(eventPool)
 
-		// Set previousThreatLevel for shenanigans
-		previousThreatLevel = threatLevel;
-		
 		// For everything in the event pool
 		// Yes. I know this is bad. Refactor it.
 		for (let i = 0; i < eventPool.length; i++) {
+			let station = stations[Math.floor(Math.random() * stations.length)]
 			const event = eventPool[i];
-			// Check if event threat is equal to threatlevel
-			if (event.threat == threatLevel) {
-				// If so run event
-				const station = stations[Math.floor(Math.random() * stations.length)]
-				console.log(`Event has been run.`)
 
+			// Event checks
+			if (
+				(threatLevel == parseInt(event.threat) || parseInt(event.threat) == -1) &&
+				credits >= parseInt(event.minimumCredits) &&
+				station.unrest >= parseInt(event.minimumUnrest) &&
+				station.uptime >= parseInt(event.minimumUptime) &&
+				station.crew >= parseInt(event.minimumCrew)
+			) {
+				// If so run event on the station
+				
+				addCredits(parseInt(event.changedCredits));
+				station.addRevenue(parseInt(event.changedRevenue));
+				station.addUnrest(parseInt(event.changedUnrest));
+				station.addCrew(event.changedCrew);
+
+				// Run the function in the class allowing for some custom
+				// javascript, defaults to an addEventLog.
+				// Used by events such as NuclearOperativesSuccess
+				// to destroy the station, or do something else with it
 				event.run(station);
+
+				console.log(`Event "${event.name}" has been run.`)
+
+				// Break out of for loop since we're done with it.
 				break;
 			} else {
 				// Otherwise reset and try again
-				console.log(`Unable to find any event with threat level: ${threatLevel}`)
+				console.log(`"${event.name}" failed to run, failed checks. Threat level: ${threatLevel}, event threat level: ${station.threat}`)
 			}
 		}
 	}
