@@ -1,0 +1,16 @@
+{
+    "%title":"Nanotrasen Simulator",
+    "%body.title":"Nanotrasen Simulator",
+    "%body.note":"You are an AI trained to manage the entirety of Nanotrasen. This is a simulation of Nanotrasen that is 99.99% accurate.",
+    "%body.export":"Export Data",
+    "%body.import":"Import Data",
+    "%body.save":"Save Data",
+    "%body.delete":"Delete Data",
+    "%body.credits":"Credits: ",
+    "%body.shop":"Shop",
+    "%body.moreStationCapacity":"More Station Capacity",
+    "%body.stations":"Stations",
+    "%body.buyStation":"Buy Station",
+    "%body.events":"Events",
+    "%events.nothingHappening":"There seems to be nothing happening currently..."
+}
