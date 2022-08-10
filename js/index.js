@@ -89,6 +89,7 @@ function importData(data) {
 				station.unrest,
 				station.createdOn,
 				station.upgrades,
+				station.ppc,
 				false,false,0
 			), false, false);
 		}
@@ -136,8 +137,19 @@ function addStation(station, sound=true, disableButton=true) {
 	<p class="station_revenue">Revenue: ${station.revenue}</p>
 	<p class="station_unrest">Unrest: ${station.unrest}</p>
 	<p class="station_uptime">Uptime: ${station.uptime}</p>
-	<p class="station_crew">Crew: 69420</p>
-	<button onclick="stations[getStationByTick('${station.createdOn}')].sellStation()" class="station_sell">Sell Station</button>
+	<p class="station_crew">Crew: 69420</p><br>
+	
+	<!-- holy shit button hell -->
+	<button onclick="stations[getStationByTick('${station.createdOn}')].sellStation()" class="station_sell">Sell Station</button><br>
+
+	<button onclick="stations[getStationByTick('${station.createdOn}')].buyCrew(1)" class="station_crewadd">+</button> Crew (${station.crewmemberPrice}C) 
+	<button onclick="stations[getStationByTick('${station.createdOn}')].addCrew(-1)" class="station_crewremove">-</button><br>
+	
+	<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember+= 10;" class="station_adddPPC">++</button>
+	<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember++;" class="station_addPPC">+</button>
+	<span class="station_ppc">CPPC: 0 | DPPC: 0</span>
+	<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember--;" class="station_remPPC">-</button>
+	<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember-= 10;" class="station_remmPPC">--</button>
 	` // Add emergency shuttle status WYCI
 	// <p class="station_shuttle">Emergency Shuttle Status: ${station.shuttleStatus}</p>
 	document.getElementById("stations").appendChild(div)
@@ -179,7 +191,7 @@ function buyStation() {
 	// check if we have enough credits and we havent hit the maxcap
 	if (credits >= stationPrice && stationsBought < maxStations) {
 		// create a new station, this'll be appended
-		const station = new Station(generateStationName(), 150, 0, tickNumber, []);
+		const station = new Station(generateStationName(), 100, 0, tickNumber, []);
 
 		addStation(station) // add the station+renders
 		addEventLog(`Nanotrasen purchased (STATION_NAME) for ${stationPrice} credits.`, station, "#00aa00")

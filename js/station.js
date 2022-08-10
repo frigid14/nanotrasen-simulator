@@ -3,7 +3,7 @@
  */
 class Station {
 	name = "Station Station"
-	revenue = 100
+	revenue = 1000
 	unrest = 0
 	upgrades = [] // No upgrades. Fuck you.
 	shuttleSent = 0
@@ -13,13 +13,14 @@ class Station {
 	}
 	createdOn = 0;
 	
-	payPerCrewmember = 25;
-	desiredPPC = 25;
-	crew = 10;
+	// BALANCE PPC NERD
+	payPerCrewmember = 15;
+	crewmemberPrice = 150;
+	crew = 5;
 
 	requireUpkeep = true;
 
-	constructor(name,revenue,unrest,tickCreated,upgrades,ertSent,decomissioned,shuttleSent) {
+	constructor(name,revenue,unrest,tickCreated,upgrades,ppc,ertSent,decomissioned,shuttleSent) {
 		this.name = name
 		this.revenue = revenue
 		this.unrest = unrest
@@ -36,7 +37,7 @@ class Station {
 		if ((this.createdOn - tickNumber * -1) % 20 === 0) {
 			// More crewmembers being paid well = More revenue, but more bad events
 			// Less crewmembers = Less revenue but less bad events
-			addCredits(this.revenue + this.crew * Math.floor(this.payPerCrewmember / 2));
+			addCredits(this.revenue + this.crew * Math.floor(this.payPerCrewmember));
 		}
 
 		if ((this.createdOn - tickNumber * -1) % 10 === 0) {
@@ -46,20 +47,25 @@ class Station {
 					this.addUnrest(Math.floor(Math.random() * 15) + 10);
 					addEventLog("Crewmembers aboard (STATION_NAME) believe that they aren't being paid as better as the others! Civil unrest increased.", this, "#aa0000")
 				} else {
-					addEventLog(`Nanotrasen paid ${crew} crewmembers ${this.payPerCrewmember} credits aboard (STATION_NAME). Civil unrest decreased.`, this, "#aa0000")
+					// Removed due to the stupid amount of log spamming there was
+					// addEventLog(`Nanotrasen paid ${this.crew} crewmembers ${this.payPerCrewmember} credits aboard (STATION_NAME). Civil unrest decreased.`, this, "#aa0000")
 					this.addUnrest(-1);
 				}
 			}
 		}
 
-		this.desiredPPC = (70 * this.crew + this.revenue)
+		if (this.payPerCrewmember < 0) {
+			this.payPerCrewmember = 0;
+		}
 
 		div.getElementsByClassName("station_revenue")[0].innerHTML = `Revenue: ${this.revenue}`
 		div.getElementsByClassName("station_unrest")[0].innerHTML = `Unrest: ${this.unrest}`
 		div.getElementsByClassName("station_uptime")[0].innerHTML = `Uptime: ${this.uptime}`
 		div.getElementsByClassName("station_crew")[0].innerHTML = `Crew: ${this.crew} <img src="assets/images/person.svg" style="width: 18px; vertical-align: middle;" alt="person icon"></img>`
+		
+		div.getElementsByClassName("station_ppc")[0].innerHTML = `CPPC: ${this.payPerCrewmember} | DPPC: ${this.desiredPPC}`;
 
-// div.getElementsByClassName("station_shuttle")[0].innerHTML = `Emergency Shuttle Status: ${this.shuttleStatus}`
+		// div.getElementsByClassName("station_shuttle")[0].innerHTML = `Emergency Shuttle Status: ${this.shuttleStatus}`
 	}
 
 	destroy() {
@@ -117,6 +123,13 @@ class Station {
 		}
 	}
 
+	buyCrew(crewmembers) {
+		if (credits >= this.crewmemberPrice) {
+			this.addCrew(crewmembers);
+			addCredits(-this.crewmemberPrice);
+		}
+	}
+
 	get shuttleStatus() {
 		if (this.shuttleSent == 1) {
 			return "Bluespace"
@@ -124,6 +137,10 @@ class Station {
 			return "Docked"
 		}
 		return "Central Command"
+	}
+
+	get desiredPPC() {
+		return 5 + Math.floor((this.revenue + this.crew) / 10)
 	}
 
 	get uptime() {
@@ -137,6 +154,7 @@ class Station {
 			unrest: this.unrest,
 			upgrades: this.upgrades,
 			shuttleSent: this.shuttleSent,
+			ppc: this.payPerCrewmember,
 			ertSent: this.booleans.ertSent,
 			decomissioned: this.booleans.decomissioned,
 			tickCreated: this.createdOn
