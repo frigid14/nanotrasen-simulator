@@ -70,7 +70,7 @@ function runEvent() {
 
 			// Event checks
 			if (
-				threatLevel == parseInt(event.threat) &&
+				(threatLevel == parseInt(event.threat) || parseInt(event.threat) == -1) &&
 				credits >= parseInt(event.minimumCredits) &&
 				station.unrest >= parseInt(event.minimumUnrest) &&
 				station.uptime >= parseInt(event.minimumUptime) &&

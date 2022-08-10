@@ -183,6 +183,29 @@ class NuclearEmergencySuccess extends AntagMajor {
 	}
 }
 
+class MalfAISuccess extends AntagMajor {
+	name = "Malfunctioning AI"
+	message = "A nuclear fission device has exploded unwillingly aboard (STATION_NAME), checking the logs, it reveals that this was the cause of a Malfunctioning AI! You havent heard from the station since."
+	threat = 100;
+
+	run(station) {
+		addEventLog(this.message, station, this.color);
+		station.destroy();
+	}
+}
+
+class BloodCultSuccess extends AntagMajor {
+	name = "Blood Cult Success"
+	message = " Space time anomalies have been detected on (STATION_NAME). Nar'Sie has risen. You are forced to abandon the station before any more damage can be done."
+	threat = 100;
+
+	run(station) {
+		spanomalies.play()
+		addEventLog(this.message, station, this.color);
+		station.destroy();
+	}
+}
+
 class RevolutionSuccess extends AntagMajor {
 	name = "Successful Nuclear Operation"
 	message = "A revolution has sparked on (STATION_NAME) due to low unrest. Multiple casualties and a distress signal, \"SEND HELP PLEASE\"."
@@ -192,10 +215,33 @@ class RevolutionSuccess extends AntagMajor {
 	changedCrew = -50;
 }
 
+class WizardSuccess extends AntagMajor {
+	name = "Successful Wizard Attack"
+	message = "A wizard has attacked (STATION_NAME) causing mass crew damage. Multiple casualties and a distress signal, \"SEND HELP PLEASE\"."
+	threat = 100;
+
+	minimumUnrest = 50;
+	changedCrew = -100;
+}
+
+class Tragedy extends Event {
+	// -1 threat means it can happen anytime.
+	message = "A tragedy has occured. a crewmember aboard (STATION_NAME) has died."
+	threat = -1;
+
+	changedCrew = -1;
+}
+
 
 const eventPool = [
 	new NuclearEmergencySuccess(),
+	new RevolutionSuccess(),
+	new WizardSuccess(),
+	new MalfAISuccess(),
+	new BloodCultSuccess(),
+
 	new NuclearEmergencyFailure(),
+
 	new ThiefDetected(),
 	new TraitorDetained(),
 	new ThiefCaughtSucceed(),
@@ -208,5 +254,7 @@ const eventPool = [
 	new WizardRumors(),
 	new ForeignLifeformsMinor(),
 	new InsanityWave(),
-	new BluespaceAnomaly()
+	new BluespaceAnomaly(),
+
+	new Tragedy()
 ]
