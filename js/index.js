@@ -45,6 +45,7 @@ function exportData() {
 		stationAmount: 0,
 		stationPrice: 0,
 		capacityPrice: 0,
+		maxStations: 0,
 		tickNumber: 0, 
 		credits: 0, 
 		threat: 20,
@@ -60,6 +61,7 @@ function exportData() {
 	fullData.capacityPrice = capacityPrice;
 	fullData.tickNumber = tickNumber;
 	fullData.credits = credits;
+	fullData.maxStations = maxStations;
 	fullData.threat = threatLevel;
 
 	return btoa(JSON.stringify(fullData));
@@ -97,6 +99,7 @@ function importData(data) {
 		tickNumber = packedData.tickNumber
 		credits = packedData.credits
 		threatLevel = packedData.threat
+		maxStations = packedData.maxStations
 
 		document.getElementById("stationsAmount").innerHTML = `${stationsBought}/${maxStations}`
 		document.getElementById("capacityPrice").innerHTML = `(${capacityPrice})`
@@ -133,6 +136,7 @@ function addStation(station, sound=true, disableButton=true) {
 	<p class="station_revenue">Revenue: ${station.revenue}</p>
 	<p class="station_unrest">Unrest: ${station.unrest}</p>
 	<p class="station_uptime">Uptime: ${station.uptime}</p>
+	<p class="station_crew">Crew: 69420</p>
 	<button onclick="stations[getStationByTick('${station.createdOn}')].sellStation()" class="station_sell">Sell Station</button>
 	` // Add emergency shuttle status WYCI
 	// <p class="station_shuttle">Emergency Shuttle Status: ${station.shuttleStatus}</p>
