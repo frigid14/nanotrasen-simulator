@@ -37,7 +37,7 @@ class Station {
 		if ((this.createdOn - tickNumber * -1) % 20 === 0) {
 			// More crewmembers being paid well = More revenue, but more bad events
 			// Less crewmembers = Less revenue but less bad events
-			addCredits(this.revenue + this.crew * Math.floor(this.payPerCrewmember));
+			addCredits(this.calculatedRevenue);
 		}
 
 		if ((this.createdOn - tickNumber * -1) % 10 === 0) {
@@ -58,7 +58,7 @@ class Station {
 			this.payPerCrewmember = 0;
 		}
 
-		div.getElementsByClassName("station_revenue")[0].innerHTML = `Revenue: ${this.revenue}`
+		div.getElementsByClassName("station_revenue")[0].innerHTML = `Revenue: ${this.calculatedRevenue}`
 		div.getElementsByClassName("station_unrest")[0].innerHTML = `Unrest: ${this.unrest}`
 		div.getElementsByClassName("station_uptime")[0].innerHTML = `Uptime: ${this.uptime}`
 		div.getElementsByClassName("station_crew")[0].innerHTML = `Crew: ${this.crew} <img src="assets/images/person.svg" style="width: 18px; vertical-align: middle;" alt="person icon"></img>`
@@ -146,6 +146,10 @@ class Station {
 	get uptime() {
 		return Math.floor(((this.createdOn - tickNumber) * -1) / 10);
 	}
+
+        get calculatedRevenue() {
+                return this.revenue + this.crew * Math.floor(this.payPerCrewmember)
+        }
 
 	export() {
 		return {
