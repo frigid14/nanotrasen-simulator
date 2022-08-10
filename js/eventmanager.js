@@ -61,6 +61,8 @@ function runEvent() {
 		// Clamp threatlevel
 		if (threatLevel > 100) threatLevel = 100;
 		if (threatLevel < 10) threatLevel = 10;
+                // Need to shuffle array else shit can get stuck
+                eventPool.sort(() => .5 - Math.random() );
 
 		// For everything in the event pool
 		// Yes. I know this is bad. Refactor it.
