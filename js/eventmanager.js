@@ -45,6 +45,26 @@ function addEventLog(message, station, color) {
 	document.getElementById("events").prepend(paragraph)
 }
 
+// thanks stack overflow.
+function shuffleArray(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
+
 /**
  * Calculates a threat level and runs the corresponding event from the `eventPool`.
  */
@@ -62,7 +82,7 @@ function runEvent() {
 		if (threatLevel > 100) threatLevel = 100;
 		if (threatLevel < 10) threatLevel = 10;
                 // Need to shuffle array else shit can get stuck
-                eventPool.sort(() => .5 - Math.random() );
+                shuffleArray(eventPool)
 
 		// For everything in the event pool
 		// Yes. I know this is bad. Refactor it.
