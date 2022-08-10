@@ -27,23 +27,41 @@ class Loc {
     getString(key) {
         return this.tryGetString(key) ?? key;
     }
-}
 
-function localizeDOM() {
-    const allElements = document.getElementsByTagName('*');
-    for (var element of allElements) {
-        if (!element.textContent.includes("\n")) {
-            key = element.textContent;
-            console.log(key);
-            element.textContent = loc.getString(key);
+    localizeDOM() {
+        const allElements = document.querySelectorAll("*");
+        for (var element of allElements) {
+            if (!element.firstChild || !element.firstChild.data) {
+                continue;
+            }
+
+            const text = element.firstChild.data;
+
+            if (text.includes("\n")) {
+                continue;
+            }
+            if (text.includes(" ")) {
+                const substrings = text.split(" ");
+                var buffer = [];
+    
+                for (var substring of substrings) {
+                    buffer.push(loc.getString(substring));
+                }
+    
+                const final = buffer.join(" ");
+                element.firstChild.data = final;
+            } else {
+                element.firstChild.data = loc.getString(text);
+            }
+    
+            
         }
     }
 }
-
 async function initializeLoc(loc) {
     await loc.init();
     console.log("Loc initialized.");
-    localizeDOM();
+    loc.localizeDOM();
     console.log("DOM localized.");
 }
 

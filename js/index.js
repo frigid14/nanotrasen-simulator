@@ -12,7 +12,7 @@ let capacityPrice = 5000;
  */
 function addCredits(credits_added) {
 	credits += credits_added;
-	document.getElementById("credits").innerHTML = `${credits.toString()}`;
+	document.getElementById("credits").textContent = `${credits.toString()}`;
 	if (credits > 0) {
 		document.getElementById("credits").style.color = "#00aa00"
 	} else if (credits < 0) {
