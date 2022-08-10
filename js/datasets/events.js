@@ -141,7 +141,7 @@ class InsanityWave extends Event {
 	threat = 50;
 	color = "#aa0000"
 	
-	changedUunrest = 35
+	changedUnrest = 35
 }
 
 class BluespaceAnomaly extends Event {
@@ -159,6 +159,77 @@ class BluespaceAnomaly extends Event {
 			Math.floor(Math.random() * (1000 - -100 + 1) + -1000)
 		);
 	}
+}
+
+class StationFunding extends Event {
+	name = "Station Funding"
+	message = "(STATION_NAME) has deducted an amount from your credits as funding for their new research project."
+	threat = -1;
+
+	run(station) {
+		addEventLog(this.message, station, "#aa0000");
+		addCredits(
+			Math.floor(Math.random() * (1000 - -100 + 1) + -1000)
+		)
+	}
+}
+
+class CargoUnauthOrder extends Event {
+	name = "Unauthorized Cargo Order"
+	message = "Cargo techs aboard (STATION_NAME) have ordered an unauthorized emergency pizza crate. Deducted credits, but more productivity."
+	threat = -1;
+
+	changedCredits = -250
+	changedUnrest = -15
+	changedRevenue = 50
+}
+
+class SalvageArtifactGood extends Event {
+	name = "Salvage Artifact: Good"
+	message = "Salvagers aboard (STATION_NAME) have found a beneficial artifact, and have sold it for extra cash."
+	threat = -1;
+
+	changedCredits = 150
+	changedRevenue = 50
+}
+
+class MeteoriteGood extends Event {
+	name = "Meteor: Good"
+	message = "A passing-by space dragon smashed a meteorite toward (STATION_NAME)'s salvage magnet, and the meteorite is rich of resources!"
+	threat = -1
+
+	changedCredits = 250
+}
+
+class BotanyProductivity extends Event {
+	name = "Productive Botany"
+	message = "Botany aboard (STATION_NAME) decides to work with Chemistry to yield faster crops, feeding the crew and selling the excess to cargo. Revenue increased, civil unrest decreased."
+
+	changedRevenue = 150
+	changedUnrest = -25
+}
+
+class CryopodFriendly extends Event {
+	name = "Cryopod: Friendly"
+	message = "Salvage techs aboard (STATION_NAME) have found derelict Nanotrasen ruins, with active cryopods! The survivors are immigrated onto your station."
+
+	changedCrew = 5
+}
+
+class CryopodNeutral extends Event {
+	name = "Cryopod: Neutral"
+	message = "Salvage techs aboard (STATION_NAME) have found derelict Nanotrasen ruins, with active cryopods! The survivors are immigrated onto your station, but not without some unrest from the crew."
+
+	changedCrew = 5
+	changedUnrest = 15
+}
+
+class CryopodHostile extends Event {
+	name = "Cryopod: Hostile"
+	message = "Salvage techs aboard (STATION_NAME) have found derelict ruins, with active cryopods! However the survivors are hostile pirates! You lose some salvage techs while running from the pirates."
+
+	changedCrew = -3
+	changedUnrest = 20
 }
 
 class NuclearEmergencyFailure extends Event {
@@ -250,6 +321,15 @@ const eventPool = [
 	new BloodCultSuccess(),
 
 	new NuclearEmergencyFailure(),
+
+	new CryopodHostile(),
+	new CryopodNeutral(),
+	new CryopodFriendly(),
+	new BotanyProductivity(),
+	new MeteoriteGood(),
+	new SalvageArtifactGood(),
+	new CargoUnauthOrder(),
+	new StationFunding(),
 
 	new ThiefDetected(),
 	new TraitorDetained(),

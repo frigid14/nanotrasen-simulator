@@ -45,7 +45,7 @@ class Station {
 				addCredits(-Math.floor(this.payPerCrewmember * this.crew));
 				if (this.payPerCrewmember < this.desiredPPC) {
 					this.addUnrest(Math.floor(Math.random() * 15) + 10);
-					addEventLog("Crewmembers aboard (STATION_NAME) believe that they aren't being paid as better as the others! Civil unrest increased.", this, "#aa0000")
+					addEventLog("Crewmembers aboard (STATION_NAME) believe that they aren't being paid good enough for their hard work! Civil unrest increased.", this, "#aa0000")
 				} else {
 					// Removed due to the stupid amount of log spamming there was
 					// addEventLog(`Nanotrasen paid ${this.crew} crewmembers ${this.payPerCrewmember} credits aboard (STATION_NAME). Civil unrest decreased.`, this, "#aa0000")
