@@ -178,6 +178,7 @@ class NuclearEmergencySuccess extends AntagMajor {
 	threat = 100;
 
 	run(station) {
+		operatives.play();
 		addEventLog(this.message, station, this.color);
 		station.destroy();
 	}
@@ -190,6 +191,7 @@ class MalfAISuccess extends AntagMajor {
 
 	run(station) {
 		addEventLog(this.message, station, this.color);
+		malfai.play()
 		station.destroy();
 	}
 }
@@ -224,6 +226,11 @@ class WizardSuccess extends AntagMajor {
 
 	minimumUnrest = 50;
 	changedCrew = -100;
+
+	run(station) {
+		wizards.play()
+		addEventLog(this.message, station, this.color);
+	}
 }
 
 class Tragedy extends Event {
