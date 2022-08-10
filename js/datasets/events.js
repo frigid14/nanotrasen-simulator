@@ -176,6 +176,11 @@ class NuclearEmergencySuccess extends AntagMajor {
 	name = "Successful Nuclear Operation"
 	message = "A team of nuclear operatives have successfully detonated the nuclear fission device on (STATION_NAME). You havent heard from it since the unauthorized nuclear explosion alert."
 	threat = 100;
+
+	run(station) {
+		addEventLog(this.message, station, this.color);
+		station.destroy();
+	}
 }
 
 const eventPool = [
