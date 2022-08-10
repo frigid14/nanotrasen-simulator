@@ -53,7 +53,7 @@ class ThiefCaughtSucceed extends Event {
 class EnemyCommunicationIntercepted extends Event {
 	name = "Enemy Communication Intercepted"
 	message = "Attention, enemy communication intercepted. Security level elevated. Civil unrest increased."
-	threat = 20
+	threat = -1
 
 	changedUnrest = 25
 
@@ -69,7 +69,7 @@ class EnemyCommunicationIntercepted extends Event {
 class PlasmaBubble extends Event {
 	name = "Plasma Bubble"
 	message = "(STATION_NAME) has entered an area of space with more plasma than the last, increased revenue!"
-	threat = 20
+	threat = -1
 	color = "#ff00ff"
 
 	changedRevenue = 50
@@ -153,10 +153,10 @@ class BluespaceAnomaly extends Event {
 		addEventLog(this.message, station, "#0000ff")
 		spanomalies.play()
 		station.addUnrest(
-			Math.floor(Math.random() * (Math.floor(50) - Math.ceil(-50)) + Math.floor(100))
+			Math.floor(Math.random() * (100 - -100 + 1) + -100)
 		);
 		station.addRevenue(
-			Math.floor(Math.random() * (Math.floor(1000) - Math.ceil(-1000)) + Math.floor(100))
+			Math.floor(Math.random() * (1000 - -100 + 1) + -1000)
 		);
 	}
 }
