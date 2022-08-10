@@ -81,7 +81,6 @@ function runEvent() {
 				addCredits(parseInt(event.changedCredits));
 				station.addRevenue(parseInt(event.changedRevenue));
 				station.addUnrest(parseInt(event.changedUnrest));
-				// Soon :tm:
 				station.addCrew(event.changedCrew);
 
 				// Run the function in the class allowing for some custom

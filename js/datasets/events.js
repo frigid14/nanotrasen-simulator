@@ -183,6 +183,16 @@ class NuclearEmergencySuccess extends AntagMajor {
 	}
 }
 
+class RevolutionSuccess extends AntagMajor {
+	name = "Successful Nuclear Operation"
+	message = "A revolution has sparked on (STATION_NAME) due to low unrest. Multiple casualties and a distress signal, \"SEND HELP PLEASE\"."
+	threat = 100;
+
+	minimumUnrest = 90;
+	changedCrew = -50;
+}
+
+
 const eventPool = [
 	new NuclearEmergencySuccess(),
 	new NuclearEmergencyFailure(),
