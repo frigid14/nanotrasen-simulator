@@ -34,7 +34,6 @@ function addEventLog(message, station, color) {
 	let paragraph = document.createElement("p"); // create paragraph
 
 	// Replace every instance of (STATION_NAME) with the actual station name.
-	message = loc.getString(message);
 	message = message.replace("(STATION_NAME)", `<strong>${station.name}</strong>`)
 	// TODO: Make this better
 	paragraph.innerHTML = `<button onclick="document.getElementById('${id}').parentNode.removeChild(document.getElementById('${id}'))">Close event</button> ${message}`;
