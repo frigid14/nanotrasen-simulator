@@ -9,6 +9,8 @@ body {
 	width: 25rem;
 	height: 18rem;
 	padding: 1px;
+
+	overflow-y: auto;
 }
 
 #stations {
