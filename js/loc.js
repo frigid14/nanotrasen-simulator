@@ -81,5 +81,5 @@ async function initializeLoc(loc) {
     console.log("DOM localized.");
 }
 
-var loc = new Loc("en-US");
+var loc = new Loc();
 initializeLoc(loc);
