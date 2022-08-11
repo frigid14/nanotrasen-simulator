@@ -28,10 +28,18 @@ class Loc {
         return this.tryGetString(key) ?? key;
     }
 
+    /**
+     * @param {string} key
+     * @param {array} args
+     * @returns {string}
+     */
     formatString(key, args) {
         var string = this.getString(key);
-        const regExp = /\${[0-9]*[a-zA-Z]*}/g;
+        const regExp = /\${[0-9a-zA-Z]*}/g;
         const array = string.match(regExp);
+
+        if (array == null) return key;
+
         for (let i = 0; i < array.length; i++) {
             string = string.replace(array[i], args[i]);
         }
@@ -63,8 +71,6 @@ class Loc {
             } else {
                 element.firstChild.data = loc.getString(text);
             }
-    
-            
         }
     }
 }

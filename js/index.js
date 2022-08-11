@@ -27,7 +27,7 @@ function addCredits(credits_added) {
  */
 function buyStationCapacity() {
 	if (credits >= capacityPrice) {
-		addEventLog(`Nanotrasen purchased extra station capacity for ${capacityPrice} credits.`, new Station("", 0,0,0,[]), "#00aa00")
+		addEventLog(loc.formatString("%events.buyStationCapacity", [capacityPrice]), new Station("", 0,0,0,[]), "#00aa00")
 		addCredits(-capacityPrice)
 		maxStations++;
 		capacityPrice = Math.floor(capacityPrice *= 1.5);
@@ -194,7 +194,7 @@ function buyStation() {
 		const station = new Station(generateStationName(), 100, 0, tickNumber, []);
 
 		addStation(station) // add the station+renders
-		addEventLog(`Nanotrasen purchased (STATION_NAME) for ${stationPrice} credits.`, station, "#00aa00")
+		addEventLog(loc.formatString("%events.buyStation", [stationPrice]), station, "#00aa00")
 		addCredits(-stationPrice) // remove credits
 
 		// increase price exponentially
@@ -208,6 +208,8 @@ function buyStation() {
 }
 
 window.addEventListener('load', function () {
+	// initialize loc
+
 	// properly set buystation, and add the starting credits
 	document.getElementById("buyStation").innerHTML = `Buy Station (${stationPrice})`
 	addCredits(STARTING_CREDITS);
