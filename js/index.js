@@ -4,7 +4,7 @@ let maxStations = 5;
 let stationsBought = 0;
 let credits = 0 //DO NOT MODIFY
 let stationPrice = 1000;
-let capacityPrice = 5000;
+let capacityPrice = 15000;
 
 let ertSquadrons = 3;
 let dsSquadrons = 0;
