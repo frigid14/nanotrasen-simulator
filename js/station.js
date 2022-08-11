@@ -8,6 +8,7 @@ class Station {
 	upgrades = [] // No upgrades. Fuck you.
 	shuttleSent = 0
 	booleans = {
+		revolution: false,
 		ertSent: false,
 		decomissioned: false,
 	}
@@ -19,12 +20,14 @@ class Station {
 
 	requireUpkeep = true;
 
-	constructor(name,revenue,unrest,tickCreated,upgrades,ppc,ertSent,decomissioned,shuttleSent) {
+	constructor(name,revenue,unrest,tickCreated,upgrades,ppc,revs,ertSent,decomissioned,shuttleSent) {
 		this.name = name
 		this.revenue = revenue
 		this.unrest = unrest
 		this.upgrades = upgrades
+		this.payPerCrewmember = ppc
 		this.shuttleSent = shuttleSent
+		this.booleans.revolution = revs
 		this.booleans.ertSent = ertSent
 		this.booleans.decomissioned = decomissioned
 		this.createdOn = tickCreated
@@ -164,6 +167,7 @@ class Station {
 			upgrades: this.upgrades,
 			shuttleSent: this.shuttleSent,
 			ppc: this.payPerCrewmember,
+			revs: this.booleans.revolution,
 			ertSent: this.booleans.ertSent,
 			decomissioned: this.booleans.decomissioned,
 			tickCreated: this.createdOn

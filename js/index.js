@@ -90,6 +90,7 @@ function importData(data) {
 				station.createdOn,
 				station.upgrades,
 				station.ppc,
+				station.revs,
 				false,false,0
 			), false, false);
 		}
