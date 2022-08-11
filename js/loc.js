@@ -17,7 +17,7 @@ class Loc {
     }
 
     tryGetString(key) {
-        if (key in this.table) {
+        if (this.table[key] != undefined) {
             return this.table[key];
         } else {
             return null;
@@ -81,5 +81,5 @@ async function initializeLoc(loc) {
     console.log("DOM localized.");
 }
 
-var loc = new Loc();
+var loc = new Loc("en-US");
 initializeLoc(loc);

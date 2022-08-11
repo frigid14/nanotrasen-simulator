@@ -10,11 +10,15 @@ Idle clicker game thing set in the Space Station 13 universe, check SS13 out. It
 
 ## Contributors
 
-Be warned that this is major spaghetti code that is uncommented and undocumented. I wrote Nanotrasen Simulator in under a day, give me a break.
+NT Simulator is massive spaghetti code, with barely anything documented. I'd appreciate if you made documentation instead of content PRs. Thanks.
+
+*Side note*
+You require a webserver to run NT Simulator as `fetch` on an HTML file on firefox breaks shit. Use something like a VSCode Live Server.
 
 ## Features
 
 - Station management system
+- Localization
 - Event system
 
 ## License
