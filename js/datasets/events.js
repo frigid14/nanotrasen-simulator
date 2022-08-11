@@ -1,6 +1,6 @@
 class Rumor extends Event {
 	name = "Rumor"
-	message = "Rumors about bullshit."
+	message = "%events.rumor";
 	color = "#aa0000"
 	threat = 30
 
@@ -12,7 +12,7 @@ class Rumor extends Event {
 
 class AntagMajor extends Event {
 	name = "Antag Major"
-	message = "So spooky."
+	message = "%events.antagMajor";
 	color = "#aa0000"
 	threat = 80
 
@@ -26,7 +26,7 @@ class AntagMajor extends Event {
 
 class ThiefCaughtFail extends Event {
 	name = "Thief";
-	message = "A thief has been caught on (STATION_NAME), but their attempts to steal were futile! Civil unrest has decreased."
+	message = "%events.thiefCaughtFail";
 	color = "#00aa00";
 	threat = 10;
 
@@ -38,7 +38,7 @@ class ThiefCaughtFail extends Event {
 
 class ThiefCaughtSucceed extends Event {
 	name = "Thief";
-	message = "A thief has been caught on (STATION_NAME), but they got away! Credits decreased, Civil unrest has increased."
+	message = "%events.thiefCaughtSucceed";
 	color = "#aa0000"
 	threat = 20;
 
@@ -52,7 +52,7 @@ class ThiefCaughtSucceed extends Event {
 
 class EnemyCommunicationIntercepted extends Event {
 	name = "Enemy Communication Intercepted"
-	message = "Attention, enemy communication intercepted. Security level elevated. Civil unrest increased."
+	message = "%events.enemyCommunicationIntercepted";
 	threat = -1
 
 	changedUnrest = 25
@@ -68,7 +68,7 @@ class EnemyCommunicationIntercepted extends Event {
 
 class PlasmaBubble extends Event {
 	name = "Plasma Bubble"
-	message = "(STATION_NAME) has entered an area of space with more plasma than the last, increased revenue!"
+	message = "%events.plasmaBubble"
 	threat = -1
 	color = "#ff00ff"
 
@@ -81,7 +81,7 @@ class PlasmaBubble extends Event {
 
 class ThiefDetected extends Event {
 	name = "Thief";
-	message = "A thief has been detected on (STATION_NAME), civil unrest has increased."
+	message = "%events.thiefDetected"
 	threat = 30;
 
 	changedUnrest = 15
@@ -92,7 +92,7 @@ class ThiefDetected extends Event {
 
 class TraitorDetained extends Event {
 	name = "Syndicate Agent";
-	message = "A syndicate agent has been detected on (STATION_NAME), and has been properly detained. But not without decreasing the station revenue! Civil Unrest decreased."
+	message = "%events.traitorDetained"
 	threat = 30;
 
 	changedUnrest = 15
@@ -104,7 +104,7 @@ class TraitorDetained extends Event {
 
 class NTRumors extends Rumor {
 	name = "Rumors";
-	message = "Rumors about Nanotrasen decomissioning (STATION_NAME) have spread, civil unrest increased."
+	message = "%events.ntRumors";
 	threat = 40;
 
 	changedUnrest = 25;
@@ -113,31 +113,31 @@ class NTRumors extends Rumor {
 
 class LingRumor extends Rumor {
 	name = "Changeling Rumors";
-	message = "Rumors about changelings aboard (STATION_NAME) have spread, civil unrest increased."
+	message = "%events.lingRumor";
 	threat = 40;
 }
 
 class AIActivity extends Rumor {
 	name = "Disturbing AI Activity";
-	message = "Crewmembers onboard (STATION_NAME) have noticed odd and disturbing AI activity, civil unrest increased."
+	message = "%events.aiActivity";
 	threat = 40;
 }
 
 class WizardRumors extends Rumor {
 	name = "Wizard Rumors";
-	message = "Rumors about the Wizard Federation attacking (STATION_NAME) has spread, civil unrest increased."
+	message = "%events.wizardRumors";
 	threat = 50;
 }
 
 class ForeignLifeformsMinor extends Rumor {
 	name = "Foreign Lifeforms";
-	message = "Foreign Lifeforms detected on (STATION_NAME), but the AI was able to vent the lifeforms before they did any harm. Civil unrest increased."
+	message = "%events.foreignLifeformsMinor";
 	threat = 50;
 }
 
 class InsanityWave extends Event {
 	name = "Insanity Wave";
-	message = "A bluespace anomaly has triggered, causing crewmembers aboard (STATION_NAME) to see nightmares. Civil unrest increased."
+	message = "%events.insanityWave";
 	threat = 50;
 	color = "#aa0000"
 	
@@ -146,7 +146,7 @@ class InsanityWave extends Event {
 
 class BluespaceAnomaly extends Event {
 	name = "Bluespace Anomaly";
-	message = "A bluespace anomaly has hit (STATION_NAME), our sensors were unable to figure out what happened."
+	message = "%events.bluespaceAnomaly";
 	threat = 50;
 
 	run(station) {
@@ -163,7 +163,7 @@ class BluespaceAnomaly extends Event {
 
 class StationFunding extends Event {
 	name = "Station Funding"
-	message = "(STATION_NAME) has deducted an amount from your credits as funding for their new research project."
+	message = "%events.stationFunding";
 	threat = -1;
 
 	run(station) {
@@ -176,7 +176,7 @@ class StationFunding extends Event {
 
 class CargoUnauthOrder extends Event {
 	name = "Unauthorized Cargo Order"
-	message = "Cargo techs aboard (STATION_NAME) have ordered an unauthorized emergency pizza crate. Deducted credits, but more productivity."
+	message = "%events.cargoUnauthOrder";
 	threat = -1;
 
 	changedCredits = -250
@@ -186,7 +186,7 @@ class CargoUnauthOrder extends Event {
 
 class SalvageArtifactGood extends Event {
 	name = "Salvage Artifact: Good"
-	message = "Salvagers aboard (STATION_NAME) have found a beneficial artifact, and have sold it for extra cash."
+	message = "%events.salvageArtifactGood";
 	threat = -1;
 
 	changedCredits = 150
@@ -195,7 +195,7 @@ class SalvageArtifactGood extends Event {
 
 class MeteoriteGood extends Event {
 	name = "Meteor: Good"
-	message = "A passing-by space dragon smashed a meteorite toward (STATION_NAME)'s salvage magnet, and the meteorite is rich of resources!"
+	message = "%events.meteoriteGood";
 	threat = -1
 
 	changedCredits = 250
@@ -216,7 +216,7 @@ class MeteoriteBad extends MeteoriteGood {
 
 class BotanyProductivity extends Event {
 	name = "Productive Botany"
-	message = "Botany aboard (STATION_NAME) decides to work with Chemistry to yield faster crops, feeding the crew and selling the excess to cargo. Revenue increased, civil unrest decreased."
+	message = "%events.botanyProductivity";
 
 	changedRevenue = 150
 	changedUnrest = -25
@@ -224,14 +224,14 @@ class BotanyProductivity extends Event {
 
 class CryopodFriendly extends Event {
 	name = "Cryopod: Friendly"
-	message = "Salvage techs aboard (STATION_NAME) have found derelict Nanotrasen ruins, with active cryopods! The survivors are immigrated onto your station."
+	message = "%events.cryopodFriendly"
 
 	changedCrew = 5
 }
 
 class CryopodNeutral extends Event {
 	name = "Cryopod: Neutral"
-	message = "Salvage techs aboard (STATION_NAME) have found derelict Nanotrasen ruins, with active cryopods! The survivors are immigrated onto your station, but not without some unrest from the crew."
+	message = "%events.cryopodNeutral"
 
 	changedCrew = 5
 	changedUnrest = 15
@@ -239,7 +239,7 @@ class CryopodNeutral extends Event {
 
 class CryopodHostile extends Event {
 	name = "Cryopod: Hostile"
-	message = "Salvage techs aboard (STATION_NAME) have found derelict ruins, with active cryopods! However the survivors are hostile pirates! You lose some salvage techs while running from the pirates."
+	message = "%events.cryopodHostile"
 
 	changedCrew = -3
 	changedUnrest = 20
@@ -247,7 +247,7 @@ class CryopodHostile extends Event {
 
 class NuclearEmergencyFailure extends Event {
 	name = "Failed Nuclear Operation"
-	message = "A team of nuclear operatives have failed to detonate the nuclear fission device on (STATION_NAME). The cargo techs have sold the loot for extra revenue."
+	message = "%events.nuclearEmergencyFailure"
 	threat = 70;
 
 	run(station) {
@@ -258,7 +258,7 @@ class NuclearEmergencyFailure extends Event {
 
 class NuclearEmergencySuccess extends AntagMajor {
 	name = "Successful Nuclear Operation"
-	message = "A team of nuclear operatives have successfully detonated the nuclear fission device on (STATION_NAME). You havent heard from it since the unauthorized nuclear explosion alert."
+	message = "%events.nuclearEmergencySuccess"
 	threat = 100;
 
 	run(station) {
@@ -270,7 +270,7 @@ class NuclearEmergencySuccess extends AntagMajor {
 
 class MalfAISuccess extends AntagMajor {
 	name = "Malfunctioning AI"
-	message = "A nuclear fission device has exploded unwillingly aboard (STATION_NAME), checking the logs, it reveals that this was the cause of a Malfunctioning AI! You havent heard from the station since."
+	message = "%events.malfAiSuccess"
 	threat = 100;
 
 	run(station) {
@@ -282,7 +282,7 @@ class MalfAISuccess extends AntagMajor {
 
 class BloodCultSuccess extends AntagMajor {
 	name = "Blood Cult Success"
-	message = " Space time anomalies have been detected on (STATION_NAME). Nar'Sie has risen. You are forced to abandon the station before any more damage can be done."
+	message = "%events.bloodCultSuccess"
 	threat = 100;
 
 	minimumCrew = 15;
@@ -296,7 +296,7 @@ class BloodCultSuccess extends AntagMajor {
 
 class RevolutionSuccess extends Event {
 	name = "Viva Revolution!"
-	message = "A revolution has sparked on (STATION_NAME) due to low unrest. Multiple casualties and a distress signal, \"SEND HELP PLEASE\"."
+	message = "%events.revolutionSuccess"
 	threat = -1;
 	color = "#aa0000";
 
@@ -310,7 +310,7 @@ class RevolutionSuccess extends Event {
 
 class WizardSuccess extends AntagMajor {
 	name = "Successful Wizard Attack"
-	message = "A wizard has attacked (STATION_NAME) causing mass crew damage. Multiple casualties and a distress signal, \"SEND HELP PLEASE\"."
+	message = "%events.wizardSuccess"
 	threat = 100;
 
 	minimumUnrest = 50;
@@ -325,7 +325,7 @@ class WizardSuccess extends AntagMajor {
 class Tragedy extends Event {
 	// -1 threat means it can happen anytime.
 	name = "Tragedy"
-	message = "A tragedy has occured. a crewmember aboard (STATION_NAME) has died."
+	message = "%events.tragedy"
 	threat = -1;
 
 	changedCrew = -1;
