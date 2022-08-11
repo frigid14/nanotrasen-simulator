@@ -28,6 +28,16 @@ class Loc {
         return this.tryGetString(key) ?? key;
     }
 
+    formatString(key, args) {
+        var string = this.getString(key);
+        const regExp = /\${[0-9]*[a-zA-Z]*}/g;
+        const array = string.match(regExp);
+        for (let i = 0; i < array.length; i++) {
+            string = string.replace(array[i], args[i]);
+        }
+        return string;
+    }
+
     localizeDOM() {
         const allElements = document.querySelectorAll("*");
         for (var element of allElements) {

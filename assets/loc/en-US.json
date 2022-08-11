@@ -12,5 +12,6 @@
     "%body.stations":"Stations",
     "%body.buyStation":"Buy Station",
     "%body.events":"Events",
-    "%events.nothingHappening":"There seems to be nothing happening currently..."
+    "%events.nothingHappening":"There seems to be nothing happening currently...",
+    "%events.buyStationCapacity":"Nanotrasen purchased extra station capacity for ${capacityPrice} credits."
 }
