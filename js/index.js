@@ -26,7 +26,7 @@ function addCredits(credits_added) {
 }
 
 /**
- * ALlows you to buy more station capacity for `capacityPrice` amount of credits.
+ * Allows you to buy more station capacity for `capacityPrice` amount of credits.
  */
 function buyStationCapacity() {
 	if (credits >= capacityPrice) {

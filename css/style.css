@@ -13,6 +13,15 @@ body {
 	overflow-y: auto;
 }
 
+.crisp {
+	image-rendering: auto;
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+	image-rendering: -webkit-optimize-contrast;
+
+	vertical-align: middle;
+}
+
 #stations {
 	display: flex;
 	align-items: flex-start;
