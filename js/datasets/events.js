@@ -316,7 +316,6 @@ class Tragedy extends Event {
 
 const eventPool = [
 	new NuclearEmergencySuccess(),
-	new RevolutionSuccess(),
 	new WizardSuccess(),
 	new MalfAISuccess(),
 	new BloodCultSuccess(),
