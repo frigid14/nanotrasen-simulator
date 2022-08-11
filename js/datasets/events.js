@@ -306,6 +306,7 @@ class WizardSuccess extends AntagMajor {
 
 class Tragedy extends Event {
 	// -1 threat means it can happen anytime.
+	name = "Tragedy"
 	message = "A tragedy has occured. a crewmember aboard (STATION_NAME) has died."
 	threat = -1;
 
