@@ -4,6 +4,8 @@ const shuttleRecall = new Audio("assets/audio/sound_ai_default_shuttlerecalled.o
 const shuttleDock = new Audio("assets/audio/sound_ai_default_shuttledock.ogg");
 const intercept = new Audio("assets/audio/sound_ai_default_intercept.ogg");
 const spanomalies = new Audio("assets/audio/sound_ai_default_spanomalies.ogg");
+const attention = new Audio("assets/audio/sound_ai_default_attention.ogg");
+const meteors = new Audio("assets/audio/sound_ai_default_meteors.ogg");
 
 const cultist = new Audio("assets/audio/sound_ambience_antag_bloodcult.ogg");
 const malfai = new Audio("assets/audio/sound_ambience_antag_malf.ogg");
