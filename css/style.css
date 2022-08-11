@@ -7,7 +7,7 @@ body {
 .station {
 	outline: 5px dashed black;
 	width: 25rem;
-	height: 18rem;
+	height: 15rem;
 	padding: 1px;
 
 	overflow-y: auto;

@@ -87,8 +87,7 @@ class Station {
 		div.getElementsByClassName("station_remPPC")[0].disabled = this.booleans.revolution
 		div.getElementsByClassName("station_remmPPC")[0].disabled = this.booleans.revolution
 		
-		div.getElementsByClassName("station_crew")[0].style.color = this.booleans.revolution ? "#a00" : "#000"
-		div.getElementsByClassName("station_revenue")[0].style.color = this.booleans.revolution ? "#a00" : "#000"
+		div.getElementsByClassName("station_overtaken")[0].style.display = this.booleans.revolution ? "block" : "none"
 
 		// div.getElementsByClassName("station_shuttle")[0].innerHTML = `Emergency Shuttle Status: ${this.shuttleStatus}`
 	}
