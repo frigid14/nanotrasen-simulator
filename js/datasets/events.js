@@ -206,7 +206,7 @@ class MeteoriteGood extends Event {
 	}
 }
 
-class MeteoriteBad extends MeteoriteBad {
+class MeteoriteBad extends MeteoriteGood {
 	name = "Meteor: Bad"
 	message = "Meteorites have been detected on collision course with (STATION_NAME)! The salvage magnet was unable to catch the magnets as they pierced through the station!"
 	threat = -1
@@ -294,13 +294,18 @@ class BloodCultSuccess extends AntagMajor {
 	}
 }
 
-class RevolutionSuccess extends AntagMajor {
-	name = "Successful Nuclear Operation"
+class RevolutionSuccess extends Event {
+	name = "Viva Revolution!"
 	message = "A revolution has sparked on (STATION_NAME) due to low unrest. Multiple casualties and a distress signal, \"SEND HELP PLEASE\"."
 	threat = -1;
+	color = "#aa0000";
 
 	minimumUnrest = 90;
-	changedCrew = -50;
+
+	run(station) {
+		addEventLog(this.message,station,this.color);
+		station.booleans.revolution = true;
+	}
 }
 
 class WizardSuccess extends AntagMajor {
