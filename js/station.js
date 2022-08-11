@@ -103,14 +103,20 @@ class Station {
 		}
 	}
 
-	addUnrest(unrest) {
-		if (this.unrest >= 0 && this.unrest <= 100) {
-			let oldUnrest = this.unrest;
+	addUnrest(unrest, handleRevolution=true) {
+		if (this.unrest >= 0) {
 			this.unrest += unrest;
-			if (this.unrest > 0 && this.unrest < 100) return true
-			else this.unrest = oldUnrest
+			if (handleRevolution && this.unrest > 100) {
+				runEvent(new RevolutionSuccess(), this);	
+				this.unrest = 100;
+			} else if (!handleRevolution && this.unrest > 100) {
+				// borriiinnggg
+				this.unrest = 100;
+			}
 
-			return false
+			if (this.unrest < 0) {
+				this.unrest = 0;
+			}
 		}
 	}
 
