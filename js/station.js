@@ -8,24 +8,26 @@ class Station {
 	upgrades = [] // No upgrades. Fuck you.
 	shuttleSent = 0
 	booleans = {
+		revolution: false,
 		ertSent: false,
 		decomissioned: false,
 	}
 	createdOn = 0;
 	
-	// BALANCE PPC NERD
 	payPerCrewmember = 15;
 	crewmemberPrice = 150;
 	crew = 5;
 
 	requireUpkeep = true;
 
-	constructor(name,revenue,unrest,tickCreated,upgrades,ppc,ertSent,decomissioned,shuttleSent) {
+	constructor(name,revenue,unrest,tickCreated,upgrades,ppc,revs,ertSent,decomissioned,shuttleSent) {
 		this.name = name
 		this.revenue = revenue
 		this.unrest = unrest
 		this.upgrades = upgrades
+		this.payPerCrewmember = ppc
 		this.shuttleSent = shuttleSent
+		this.booleans.revolution = revs
 		this.booleans.ertSent = ertSent
 		this.booleans.decomissioned = decomissioned
 		this.createdOn = tickCreated
@@ -37,20 +39,26 @@ class Station {
 		if ((this.createdOn - tickNumber * -1) % 20 === 0) {
 			// More crewmembers being paid well = More revenue, but more bad events
 			// Less crewmembers = Less revenue but less bad events
-			addCredits(this.calculatedRevenue);
+			if (this.booleans.revolution) {
+				addCredits(-this.revenue);
+			} else {
+				addCredits(this.calculatedRevenue);
+			}
 		}
 
 		if ((this.createdOn - tickNumber * -1) % 10 === 0) {
-			if (this.requireUpkeep) {
+			if (this.requireUpkeep && this.booleans.revolution == false) {
 				addCredits(-Math.floor(this.payPerCrewmember * this.crew));
 				if (this.payPerCrewmember < this.desiredPPC) {
-					this.addUnrest(Math.floor(Math.random() * 15) + 10);
 					addEventLog("Crewmembers aboard (STATION_NAME) believe that they aren't being paid good enough for their hard work! Civil unrest increased.", this, "#aa0000")
+					this.addUnrest(Math.floor(Math.random() * 4) + 1);
 				} else {
 					// Removed due to the stupid amount of log spamming there was
 					// addEventLog(`Nanotrasen paid ${this.crew} crewmembers ${this.payPerCrewmember} credits aboard (STATION_NAME). Civil unrest decreased.`, this, "#aa0000")
 					this.addUnrest(-1);
 				}
+			} else if (this.booleans.revolution) {
+				this.addRevenue(Math.floor(Math.random() * 4) + 1)
 			}
 		}
 
@@ -58,12 +66,31 @@ class Station {
 			this.payPerCrewmember = 0;
 		}
 
-		div.getElementsByClassName("station_revenue")[0].innerHTML = `Revenue: ${this.calculatedRevenue}`
-		div.getElementsByClassName("station_unrest")[0].innerHTML = `Unrest: ${this.unrest}`
-		div.getElementsByClassName("station_uptime")[0].innerHTML = `Uptime: ${this.uptime}`
-		div.getElementsByClassName("station_crew")[0].innerHTML = `Crew: ${this.crew} <img src="assets/images/person.svg" style="width: 18px; vertical-align: middle;" alt="person icon"></img>`
+		// Paragraphs
+		div.getElementsByClassName("station_revenue")[0].innerHTML = `${this.booleans.revolution ? -this.revenue : this.calculatedRevenue} <img src="assets/images/payment.svg" style="width: 18px; vertical-align: middle;" alt="payment icon"></img>`
+		div.getElementsByClassName("station_unrest")[0].innerHTML = `${this.unrest} <img src="assets/images/flag.svg" style="width: 18px; vertical-align: middle;" alt="flag icon"></img>`
+		div.getElementsByClassName("station_uptime")[0].innerHTML = `${this.uptime} <img src="assets/images/timer.svg" style="width: 18px; vertical-align: middle;" alt="timer icon"></img>`
+		div.getElementsByClassName("station_crew")[0].innerHTML = `${this.crew} <img src="assets/images/person.svg" style="width: 18px; vertical-align: middle;" alt="person icon"></img>`
 		
 		div.getElementsByClassName("station_ppc")[0].innerHTML = `CPPC: ${this.payPerCrewmember} | DPPC: ${this.desiredPPC}`;
+
+
+		// Revolution
+		div.getElementsByClassName("station_sell")[0].disabled = this.booleans.revolution
+		div.getElementsByClassName("station_crewadd")[0].disabled = this.booleans.revolution
+		div.getElementsByClassName("station_crewremove")[0].disabled = this.booleans.revolution
+		
+		div.getElementsByClassName("station_demands")[0].disabled = !this.booleans.revolution
+		// div.getElementsByClassName("station_ert")[0].disabled = !this.booleans.revolution
+		// div.getElementsByClassName("station_ds")[0].disabled = !this.booleans.revolution
+		// div.getElementsByClassName("station_ds")[0].disabled = true
+		
+		div.getElementsByClassName("station_addPPC")[0].disabled = this.booleans.revolution
+		div.getElementsByClassName("station_adddPPC")[0].disabled = this.booleans.revolution
+		div.getElementsByClassName("station_remPPC")[0].disabled = this.booleans.revolution
+		div.getElementsByClassName("station_remmPPC")[0].disabled = this.booleans.revolution
+
+		div.getElementsByClassName("station_overtaken")[0].style.display = this.booleans.revolution ? "block" : "none"
 
 		// div.getElementsByClassName("station_shuttle")[0].innerHTML = `Emergency Shuttle Status: ${this.shuttleStatus}`
 	}
@@ -104,14 +131,20 @@ class Station {
 		}
 	}
 
-	addUnrest(unrest) {
-		if (this.unrest >= 0 && this.unrest <= 100) {
-			let oldUnrest = this.unrest;
+	addUnrest(unrest, handleRevolution=true) {
+		if (this.unrest >= 0) {
 			this.unrest += unrest;
-			if (this.unrest > 0 && this.unrest < 100) return true
-			else this.unrest = oldUnrest
+			if (handleRevolution && this.unrest > 100) {
+				runEvent(new RevolutionSuccess(), this);	
+				this.unrest = 100;
+			} else if (!handleRevolution && this.unrest > 100) {
+				// borriiinnggg
+				this.unrest = 100;
+			}
 
-			return false
+			if (this.unrest < 0) {
+				this.unrest = 0;
+			}
 		}
 	}
 
@@ -147,9 +180,9 @@ class Station {
 		return Math.floor(((this.createdOn - tickNumber) * -1) / 10);
 	}
 
-        get calculatedRevenue() {
-                return this.revenue + this.crew * Math.floor(this.payPerCrewmember)
-        }
+	get calculatedRevenue() {
+		return this.revenue + this.crew * Math.floor(this.payPerCrewmember)
+	}
 
 	export() {
 		return {
@@ -159,6 +192,7 @@ class Station {
 			upgrades: this.upgrades,
 			shuttleSent: this.shuttleSent,
 			ppc: this.payPerCrewmember,
+			revs: this.booleans.revolution,
 			ertSent: this.booleans.ertSent,
 			decomissioned: this.booleans.decomissioned,
 			tickCreated: this.createdOn

@@ -17,7 +17,7 @@ class Loc {
     }
 
     tryGetString(key) {
-        if (key in this.table) {
+        if (this.table[key] != undefined) {
             return this.table[key];
         } else {
             return null;

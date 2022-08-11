@@ -6,9 +6,20 @@ body {
 
 .station {
 	outline: 5px dashed black;
-	width: 18rem;
-	height: 18rem;
+	width: 25rem;
+	height: 15rem;
 	padding: 1px;
+
+	overflow-y: auto;
+}
+
+.crisp {
+	image-rendering: auto;
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+	image-rendering: -webkit-optimize-contrast;
+
+	vertical-align: middle;
 }
 
 #stations {

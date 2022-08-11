@@ -69,7 +69,7 @@ function shuffleArray(array) {
 /**
  * Calculates a threat level and runs the corresponding event from the `eventPool`.
  */
-function runEvent() {
+function runRandomEvent() {
 	// Check if we have ANY stations at all. Stop yelling at me JS.
 	if (stations.length > 0) {
 		// Calculate threat level, either +10 or -10
@@ -101,18 +101,7 @@ function runEvent() {
 			) {
 				// If so run event on the station
 				
-				addCredits(parseInt(event.changedCredits));
-				station.addRevenue(parseInt(event.changedRevenue));
-				station.addUnrest(parseInt(event.changedUnrest));
-				station.addCrew(event.changedCrew);
-
-				// Run the function in the class allowing for some custom
-				// javascript, defaults to an addEventLog.
-				// Used by events such as NuclearOperativesSuccess
-				// to destroy the station, or do something else with it
-				event.run(station);
-
-				console.log(`Event "${event.name}" has been run.`)
+				runEvent(event, station);
 
 				// Break out of for loop since we're done with it.
 				break;
@@ -122,4 +111,23 @@ function runEvent() {
 			}
 		}
 	}
+}
+
+/**
+ * Runs a specific event, if you want a random event use `runRandomEvent()`
+ * @param {Event} event 
+ */
+function runEvent(event, station) {
+	addCredits(parseInt(event.changedCredits));
+	station.addRevenue(parseInt(event.changedRevenue));
+	station.addUnrest(parseInt(event.changedUnrest), false);
+	station.addCrew(event.changedCrew);
+
+	// Run the function in the class allowing for some custom
+	// javascript, defaults to an addEventLog.
+	// Used by events such as NuclearOperativesSuccess
+	// to destroy the station, or do something else with it
+	event.run(station);
+
+	console.log(`Event "${event.name}" has been run.`)
 }

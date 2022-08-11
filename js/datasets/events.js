@@ -199,6 +199,19 @@ class MeteoriteGood extends Event {
 	threat = -1
 
 	changedCredits = 250
+
+	run(station) {
+		addEventLog(this.message, station);
+		meteors.play();
+	}
+}
+
+class MeteoriteBad extends MeteoriteGood {
+	name = "Meteor: Bad"
+	message = "Meteorites have been detected on collision course with (STATION_NAME)! The salvage magnet was unable to catch the magnets as they pierced through the station!"
+	threat = -1
+
+	changedCredits = -150
 }
 
 class BotanyProductivity extends Event {
@@ -281,13 +294,18 @@ class BloodCultSuccess extends AntagMajor {
 	}
 }
 
-class RevolutionSuccess extends AntagMajor {
-	name = "Successful Nuclear Operation"
+class RevolutionSuccess extends Event {
+	name = "Viva Revolution!"
 	message = "%events.revolutionSuccess"
 	threat = -1;
+	color = "#aa0000";
 
 	minimumUnrest = 90;
-	changedCrew = -50;
+
+	run(station) {
+		addEventLog(this.message,station,this.color);
+		station.booleans.revolution = true;
+	}
 }
 
 class WizardSuccess extends AntagMajor {
@@ -306,6 +324,7 @@ class WizardSuccess extends AntagMajor {
 
 class Tragedy extends Event {
 	// -1 threat means it can happen anytime.
+	name = "Tragedy"
 	message = "%events.tragedy"
 	threat = -1;
 
@@ -315,7 +334,6 @@ class Tragedy extends Event {
 
 const eventPool = [
 	new NuclearEmergencySuccess(),
-	new RevolutionSuccess(),
 	new WizardSuccess(),
 	new MalfAISuccess(),
 	new BloodCultSuccess(),
@@ -327,6 +345,7 @@ const eventPool = [
 	new CryopodFriendly(),
 	new BotanyProductivity(),
 	new MeteoriteGood(),
+	new MeteoriteBad(),
 	new SalvageArtifactGood(),
 	new CargoUnauthOrder(),
 	new StationFunding(),

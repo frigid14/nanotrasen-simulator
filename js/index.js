@@ -4,7 +4,10 @@ let maxStations = 5;
 let stationsBought = 0;
 let credits = 0 //DO NOT MODIFY
 let stationPrice = 1000;
-let capacityPrice = 5000;
+let capacityPrice = 15000;
+
+let ertSquadrons = 3;
+let dsSquadrons = 0;
 
 /**
  * Adds an integer amount of credits
@@ -23,7 +26,7 @@ function addCredits(credits_added) {
 }
 
 /**
- * ALlows you to buy more station capacity for `capacityPrice` amount of credits.
+ * Allows you to buy more station capacity for `capacityPrice` amount of credits.
  */
 function buyStationCapacity() {
 	if (credits >= capacityPrice) {
@@ -83,13 +86,15 @@ function importData(data) {
 
 		for (let i = 0; i < packedData.stations.length; i++) {
 			const station = packedData.stations[i];
+			console.log(station.ppc)
 			addStation(new Station(
 				station.name,
 				station.revenue,
 				station.unrest,
 				station.createdOn,
 				station.upgrades,
-				station.ppc,
+				station.payPerCrewmember,
+				station.booleans.revolution,
 				false,false,0
 			), false, false);
 		}
@@ -133,24 +138,41 @@ function addStation(station, sound=true, disableButton=true) {
 	const div = document.createElement("div")
 	div.classList.add('station');
 	div.innerHTML = `
-	<p class="station_name">Name: ${station.name}</p>
-	<p class="station_revenue">Revenue: ${station.revenue}</p>
-	<p class="station_unrest">Unrest: ${station.unrest}</p>
-	<p class="station_uptime">Uptime: ${station.uptime}</p>
-	<p class="station_crew">Crew: 69420</p><br>
-	
-	<!-- holy shit button hell -->
-	<button onclick="stations[getStationByTick('${station.createdOn}')].sellStation()" class="station_sell">Sell Station</button><br>
+	<h2 class="station_name">${station.name}</h2>
+	<span class="station_revenue"></span>|
+	<span class="station_unrest"></span>|
+	<span class="station_uptime"></span>|
+	<span class="station_crew"></span>
+	<span class="station_overtaken" style="color: #a00">OVERTAKEN</span>
 
-	<button onclick="stations[getStationByTick('${station.createdOn}')].buyCrew(1)" class="station_crewadd">+</button> Crew (${station.crewmemberPrice}C) 
-	<button onclick="stations[getStationByTick('${station.createdOn}')].addCrew(-1)" class="station_crewremove">-</button><br>
-	
-	<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember+= 10;" class="station_adddPPC">++</button>
-	<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember++;" class="station_addPPC">+</button>
-	<span class="station_ppc">CPPC: 0 | DPPC: 0</span>
-	<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember--;" class="station_remPPC">-</button>
-	<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember-= 10;" class="station_remmPPC">--</button>
-	` // Add emergency shuttle status WYCI
+	<!-- holy shit button hell -->
+	<h3>Control Panel</h3>
+	<details>
+		<summary>Station Controls</summary>
+		<button onclick="stations[getStationByTick('${station.createdOn}')].sellStation()" class="station_sell">Sell Station</button>
+		<button onclick="stations[getStationByTick('${station.createdOn}')].booleans.revolution = false; addCredits(-500000)" class="station_demands">Pay Demands (500000C)</button>
+
+		<!--
+		i WAS gonna do ERT but this other mf maintainer Anthemic merged Loc so
+		<button onclick="stations[getStationByTick('${station.createdOn}')]" class="station_ert">Send ERT</button>
+		<button onclick="stations[getStationByTick('${station.createdOn}')]" class="station_ds">Send Deathsquad</button>
+		<button onclick="stations[getStationByTick('${station.createdOn}')]" class="station_dsOrder">Cancel Order</button><br>
+		-->
+		</details>
+	<details>
+		<summary>Crew Management</summary>
+		<button onclick="stations[getStationByTick('${station.createdOn}')].buyCrew(1)" class="station_crewadd">+</button> Crew (${station.crewmemberPrice}C) 
+		<button onclick="stations[getStationByTick('${station.createdOn}')].addCrew(-1)" class="station_crewremove">-</button><br>
+		
+		<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember+= 10;" class="station_adddPPC">++</button>
+		<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember++;" class="station_addPPC">+</button>
+		<span class="station_ppc">CPPC: 0 | DPPC: 0</span>
+		<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember--;" class="station_remPPC">-</button>
+		<button onclick="stations[getStationByTick('${station.createdOn}')].payPerCrewmember-= 10;" class="station_remmPPC">--</button>
+	</details>
+	`
+	// Add emergency shuttle status WYCI
+
 	// <p class="station_shuttle">Emergency Shuttle Status: ${station.shuttleStatus}</p>
 	document.getElementById("stations").appendChild(div)
 	div.id = station.createdOn
@@ -191,7 +213,7 @@ function buyStation() {
 	// check if we have enough credits and we havent hit the maxcap
 	if (credits >= stationPrice && stationsBought < maxStations) {
 		// create a new station, this'll be appended
-		const station = new Station(generateStationName(), 100, 0, tickNumber, []);
+		const station = new Station(generateStationName(), 100, 0, tickNumber, [], 15, false, false, false, 0);
 
 		addStation(station) // add the station+renders
 		addEventLog(loc.formatString("%events.buyStation", [stationPrice]), station, "#00aa00")
