@@ -199,6 +199,19 @@ class MeteoriteGood extends Event {
 	threat = -1
 
 	changedCredits = 250
+
+	run(station) {
+		addEventLog(this.message, station);
+		meteors.play();
+	}
+}
+
+class MeteoriteBad extends MeteoriteBad {
+	name = "Meteor: Bad"
+	message = "Meteorites have been detected on collision course with (STATION_NAME)! The salvage magnet was unable to catch the magnets as they pierced through the station!"
+	threat = -1
+
+	changedCredits = -150
 }
 
 class BotanyProductivity extends Event {
@@ -327,6 +340,7 @@ const eventPool = [
 	new CryopodFriendly(),
 	new BotanyProductivity(),
 	new MeteoriteGood(),
+	new MeteoriteBad(),
 	new SalvageArtifactGood(),
 	new CargoUnauthOrder(),
 	new StationFunding(),
