@@ -13,7 +13,6 @@ class Station {
 	}
 	createdOn = 0;
 	
-	// BALANCE PPC NERD
 	payPerCrewmember = 15;
 	crewmemberPrice = 150;
 	crew = 5;
