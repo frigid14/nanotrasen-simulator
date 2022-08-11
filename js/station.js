@@ -39,11 +39,15 @@ class Station {
 		if ((this.createdOn - tickNumber * -1) % 20 === 0) {
 			// More crewmembers being paid well = More revenue, but more bad events
 			// Less crewmembers = Less revenue but less bad events
-			addCredits(this.calculatedRevenue);
+			if (this.booleans.revolution) {
+				addCredits(-this.revenue);
+			} else {
+				addCredits(this.calculatedRevenue);
+			}
 		}
 
 		if ((this.createdOn - tickNumber * -1) % 10 === 0) {
-			if (this.requireUpkeep) {
+			if (this.requireUpkeep && this.booleans.revolution == false) {
 				addCredits(-Math.floor(this.payPerCrewmember * this.crew));
 				if (this.payPerCrewmember < this.desiredPPC) {
 					addEventLog("Crewmembers aboard (STATION_NAME) believe that they aren't being paid good enough for their hard work! Civil unrest increased.", this, "#aa0000")
@@ -53,6 +57,8 @@ class Station {
 					// addEventLog(`Nanotrasen paid ${this.crew} crewmembers ${this.payPerCrewmember} credits aboard (STATION_NAME). Civil unrest decreased.`, this, "#aa0000")
 					this.addUnrest(-1);
 				}
+			} else if (this.booleans.revolution) {
+				this.addRevenue(Math.floor(Math.random() * 4) + 1)
 			}
 		}
 
@@ -60,12 +66,29 @@ class Station {
 			this.payPerCrewmember = 0;
 		}
 
-		div.getElementsByClassName("station_revenue")[0].innerHTML = `Revenue: ${this.calculatedRevenue}`
-		div.getElementsByClassName("station_unrest")[0].innerHTML = `Unrest: ${this.unrest}`
-		div.getElementsByClassName("station_uptime")[0].innerHTML = `Uptime: ${this.uptime}`
-		div.getElementsByClassName("station_crew")[0].innerHTML = `Crew: ${this.crew} <img src="assets/images/person.svg" style="width: 18px; vertical-align: middle;" alt="person icon"></img>`
+		// Paragraphs
+		div.getElementsByClassName("station_revenue")[0].innerHTML = `${this.booleans.revolution ? -this.revenue : this.calculatedRevenue} <img src="assets/images/payment.svg" style="width: 18px; vertical-align: middle;" alt="payment icon"></img>`
+		div.getElementsByClassName("station_unrest")[0].innerHTML = `${this.unrest} <img src="assets/images/flag.svg" style="width: 18px; vertical-align: middle;" alt="flag icon"></img>`
+		div.getElementsByClassName("station_uptime")[0].innerHTML = `${this.uptime} <img src="assets/images/timer.svg" style="width: 18px; vertical-align: middle;" alt="timer icon"></img>`
+		div.getElementsByClassName("station_crew")[0].innerHTML = `${this.crew} <img src="assets/images/person.svg" style="width: 18px; vertical-align: middle;" alt="person icon"></img>`
 		
 		div.getElementsByClassName("station_ppc")[0].innerHTML = `CPPC: ${this.payPerCrewmember} | DPPC: ${this.desiredPPC}`;
+
+
+		// Revolution
+		div.getElementsByClassName("station_sell")[0].disabled = this.booleans.revolution
+		div.getElementsByClassName("station_crewadd")[0].disabled = this.booleans.revolution
+		div.getElementsByClassName("station_crewremove")[0].disabled = this.booleans.revolution
+		div.getElementsByClassName("station_ert")[0].disabled = !this.booleans.revolution
+		div.getElementsByClassName("station_ds")[0].disabled = !this.booleans.revolution
+		
+		div.getElementsByClassName("station_addPPC")[0].disabled = this.booleans.revolution
+		div.getElementsByClassName("station_adddPPC")[0].disabled = this.booleans.revolution
+		div.getElementsByClassName("station_remPPC")[0].disabled = this.booleans.revolution
+		div.getElementsByClassName("station_remmPPC")[0].disabled = this.booleans.revolution
+		
+		div.getElementsByClassName("station_crew")[0].style.color = this.booleans.revolution ? "#a00" : "#000"
+		div.getElementsByClassName("station_revenue")[0].style.color = this.booleans.revolution ? "#a00" : "#000"
 
 		// div.getElementsByClassName("station_shuttle")[0].innerHTML = `Emergency Shuttle Status: ${this.shuttleStatus}`
 	}
@@ -155,9 +178,9 @@ class Station {
 		return Math.floor(((this.createdOn - tickNumber) * -1) / 10);
 	}
 
-        get calculatedRevenue() {
-                return this.revenue + this.crew * Math.floor(this.payPerCrewmember)
-        }
+	get calculatedRevenue() {
+		return this.revenue + this.crew * Math.floor(this.payPerCrewmember)
+	}
 
 	export() {
 		return {
