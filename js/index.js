@@ -15,7 +15,7 @@ let dsSquadrons = 0;
  */
 function addCredits(credits_added) {
 	credits += credits_added;
-	document.getElementById("credits").textContent = `${credits.toString()}`;
+	document.getElementById("credits").textContent = `${credits.toLocaleString()}`;
 	if (credits > 0) {
 		document.getElementById("credits").style.color = "#00aa00"
 	} else if (credits < 0) {

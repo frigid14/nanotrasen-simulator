@@ -38,6 +38,7 @@
     "%events.cargoUnauthOrder":"Cargo techs aboard (STATION_NAME) have ordered an unauthorized emergency pizza crate. Deducted credits, but more productivity.",
     "%events.salvageArtifactGood":"Salvagers aboard (STATION_NAME) have found a beneficial artifact, and have sold it for extra cash.",
     "%events.meteoriteGood":"A passing-by space dragon smashed a meteorite toward (STATION_NAME)'s salvage magnet, and the meteorite is rich of resources!",
+    "%events.meteoriteBad":"Meteorites have been detected on collision course with (STATION_NAME)! The salvage magnet was unable to catch the asteroid as they pierced through the station!",
     "%events.botanyProductivity":"Botany aboard (STATION_NAME) decides to work with Chemistry to yield faster crops, feeding the crew and selling the excess to cargo. Revenue increased, civil unrest decreased.",
     "%events.cryopodFriendly":"Salvage techs aboard (STATION_NAME) have found derelict Nanotrasen ruins, with active cryopods! The survivors are immigrated onto your station.",
     "%events.cryopodNeutral":"Salvage techs aboard (STATION_NAME) have found derelict Nanotrasen ruins, with active cryopods! The survivors are immigrated onto your station, but not without some unrest from the crew.",
@@ -46,7 +47,7 @@
     "%events.nuclearEmergencySuccess":"A team of nuclear operatives have successfully detonated the nuclear fission device on (STATION_NAME). You haven't heard from it since the unauthorized nuclear explosion alert.",
     "%events.malfAiSuccess":"A nuclear fission device has exploded unwillingly aboard (STATION_NAME), checking the logs, it reveals that this was the cause of a Malfunctioning AI! You haven't heard from the station since.",
     "%events.bloodCultSuccess":"Space time anomalies have been detected on (STATION_NAME). Nar'Sie has risen. You are forced to abandon the station before any more damage can be done.",
-    "%events.revoultionSuccess":"A revolution has sparked on (STATION_NAME) due to low unrest. Multiple casualties and a distress signal, \"SEND HELP PLEASE\".",
+    "%events.revolutionSuccess":"A revolution has sparked on (STATION_NAME) due to low unrest. Multiple casualties and a distress signal, \"SEND HELP PLEASE\".",
     "%events.wizardSuccess":"A wizard has attacked (STATION_NAME) causing mass crew damage. Multiple casualties and a distress signal, \"SEND HELP PLEASE\".",
     "%events.tragedy":"A tragedy has occured. a crewmember aboard (STATION_NAME) has died."
 }
