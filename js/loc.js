@@ -9,6 +9,11 @@ class Loc {
         this.table = await this.getKeys(this.lang);
     }
 
+    /**
+     * 
+     * @param {string} lang 
+     * @returns Contents of `lang`.json
+     */
     getKeys(lang) {
         return fetch("assets/loc/" + lang + ".json")
             .then(response => response.json())
@@ -16,6 +21,11 @@ class Loc {
             .catch(error => console.log(error));
     }
 
+    /**
+     * Takes an Loc key, outputs the Loc string, returns null if none
+     * @param {string} key 
+     * @returns {string} loc key, else null
+     */
     tryGetString(key) {
         if (this.table[key] != undefined) {
             return this.table[key];
@@ -24,11 +34,17 @@ class Loc {
         }
     }
 
+    /**
+     * Takes an Loc key and outputs the Loc string.
+     * @param {string} key 
+     * @returns {string} loc-string
+     */
     getString(key) {
         return this.tryGetString(key) ?? key;
     }
 
     /**
+     * Takes an Loc key, and outputs a formatted string based on args.
      * @param {string} key
      * @param {array} args
      * @returns {string}
@@ -46,6 +62,9 @@ class Loc {
         return string;
     }
 
+    /**
+     * Localizes the DOM.
+     */
     localizeDOM() {
         const allElements = document.querySelectorAll("*");
         for (var element of allElements) {

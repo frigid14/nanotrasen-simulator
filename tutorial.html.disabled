@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<meta charset="utf8">
+	<meta property="og:title" content="NT Simulator">
+	<meta property="og:description" content="You are the AI. You are in training of taking over Nanotrasen. This is your test.">
+	<meta property="og:image" content="/assets/images/nanotrasen_sim_512.png">
+
+	<script defer src="js/loc.js"></script>
+
+	<link rel="icon" href="assets/images/nanotrasen_sim_512.png" type="image/png" sizes="16x16">
+	<link rel="stylesheet" href="css/style.css">
+	<title>%head.title</title>
+</head>
+<body>
+	<h1>%body.title Guide</h1>
+    <h3>%body.note</h2>
+    <img src="assets/images/nanotrasen_sim.png" style="max-width: 6rem;">
+    <p>Hello, and welcome new AI to Nanotrasen Simulator. This  is a guide to the simulator. If you are here, you most likely do not know how the simulation works. That is why this manual exists.</p>
+
+	<h2>What is this?</h2>
+
+	<img src="assets/images/tutorial/menu.png" alt="menu screenshot	"><br>
+
+	<p>NT Sim at it's core is an Idle Game. Some what. You see, NT simulator takes the Idle Game concept and flips it over. Unlike most idle games where you purchase upgrades and then ignore it for the next few months, NT Simulator only has ONE upgrade (somewhat.), and those are <strong>Stations</strong>.</p>
+
+	<h2>Stations and You</h2>
+	<p>Stataions are the heart of NT simulator. You make your first 1 credit, 10 credits, 100 credits, 1,000 credits and potentially more by stations. There are 3 crucial parts of stations, <strong>Crew, Revenue and Unrest</strong>. Events are also important but that's it's own category.</p>
+
+	<h3>Crew</h3>
+	<img src="assets/images/tutorial/crew.png" alt="crew screenshot"><br>
+	<p>Crew on a station is as vital as water to you. If you don't have enough you will die, if you have too much you will also die. But the thing with crew is that you cannot physically die due to crew (only by CPPC!).</p>
+	<h4>Pay Per Crewmember</h4>
+	<p>In order to make your crew work for you (willingly!), you need to pay them. For the End-UserTM, CPPC is simple. Click ++ or + until CPPC is equal or above DPPC. If you want to get more technical, you can view the source on our github, all you need to know is that CPPC=DPPC and the crew wont be pissed.</p>
+
+	<h3>Revenue</h3>
+	<p><strong>Revenue</strong> is the amount of money made every 6 seconds. PPC is paid every 2 seconds. Revenue is a simple math equation.</p>
+	<img src="assets/images/tutorial/equation.png" alt="cr=r+c*ppc">
+	<p>Calculated Revenue = Revenue (events/default) + Crew (total crew) * Pay Per Cremember</p>
+	<p>Simple equation. All you need to know is that you get revenue every 6 seconds. Good job!</p>
+
+	<h3>Unrest</h3>
+	<img src="assets/images/tutorial/REVS.png" alt="DAMN REVS!">
+	<p>Unrest can be given in 2 ways, events and PPC being lower than DPPC. If your unrests reaches above 100 then a REVOLUTION will start, inverting revenue and disallowing management to the station, effectively draining you of credits. There is currently only one way to deal with a revolution and that is to Pay Demands and give them 500,000 credits. Don't forget to set CPPC correctly!</p>
+	
+	<style>
+		p {
+			word-wrap: normal;
+		}
+
+		code {
+			word-wrap: break-word;
+		}
+
+
+		img {
+			max-width: 800px;
+			outline: 5px dashed black;
+			outline-offset: 4px;
+			margin-left: 16px;
+		}
+	</style>
+</body>
+</html>
