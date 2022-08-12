@@ -67,12 +67,12 @@ class Station {
 		}
 
 		// Paragraphs
-		div.getElementsByClassName("station_revenue")[0].innerHTML = `${this.booleans.revolution ? -this.revenue : this.calculatedRevenue} <img src="assets/images/payment.svg" style="width: 18px; vertical-align: middle;" alt="payment icon"></img>`
-		div.getElementsByClassName("station_unrest")[0].innerHTML = `${this.unrest} <img src="assets/images/flag.svg" style="width: 18px; vertical-align: middle;" alt="flag icon"></img>`
-		div.getElementsByClassName("station_uptime")[0].innerHTML = `${this.uptime} <img src="assets/images/timer.svg" style="width: 18px; vertical-align: middle;" alt="timer icon"></img>`
-		div.getElementsByClassName("station_crew")[0].innerHTML = `${this.crew} <img src="assets/images/person.svg" style="width: 18px; vertical-align: middle;" alt="person icon"></img>`
+		div.getElementsByClassName("station_revenue")[0].innerHTML = `${this.booleans.revolution ? -this.revenue.toLocaleString() : this.calculatedRevenue.toLocaleString()} <img src="assets/images/payment.svg" style="width: 18px; vertical-align: middle;" alt="payment icon"></img>`
+		div.getElementsByClassName("station_unrest")[0].innerHTML = `${this.unrest.toLocaleString()} <img src="assets/images/flag.svg" style="width: 18px; vertical-align: middle;" alt="flag icon"></img>`
+		div.getElementsByClassName("station_uptime")[0].innerHTML = `${this.uptime.toLocaleString()} <img src="assets/images/timer.svg" style="width: 18px; vertical-align: middle;" alt="timer icon"></img>`
+		div.getElementsByClassName("station_crew")[0].innerHTML = `${this.crew.toLocaleString()} <img src="assets/images/person.svg" style="width: 18px; vertical-align: middle;" alt="person icon"></img>`
 		
-		div.getElementsByClassName("station_ppc")[0].innerHTML = `CPPC: ${this.payPerCrewmember} | DPPC: ${this.desiredPPC}`;
+		div.getElementsByClassName("station_ppc")[0].innerHTML = `CPPC: ${this.payPerCrewmember.toLocaleString()} | DPPC: ${this.desiredPPC.toLocaleString()}`;
 
 
 		// Revolution
@@ -101,7 +101,7 @@ class Station {
 		// This is the main thing that destroys the Station instance
 		// And the div.
 
-		const div = document.getElementById(this.createdOn.toString());
+		const div = document.getElementById(this.createdOn.toLocaleString());
 		
 		if (div != null) {
 			div.remove();			
