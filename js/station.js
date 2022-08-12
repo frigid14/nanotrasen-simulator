@@ -81,9 +81,9 @@ class Station {
 		div.getElementsByClassName("station_crewremove")[0].disabled = this.booleans.revolution
 		
 		div.getElementsByClassName("station_demands")[0].disabled = !this.booleans.revolution
-		// div.getElementsByClassName("station_ert")[0].disabled = !this.booleans.revolution
-		// div.getElementsByClassName("station_ds")[0].disabled = !this.booleans.revolution
-		// div.getElementsByClassName("station_ds")[0].disabled = true
+		div.getElementsByClassName("station_ert")[0].disabled = !this.booleans.revolution
+		div.getElementsByClassName("station_ds")[0].disabled = !this.booleans.revolution
+		div.getElementsByClassName("station_ds")[0].disabled = true
 		
 		div.getElementsByClassName("station_addPPC")[0].disabled = this.booleans.revolution
 		div.getElementsByClassName("station_adddPPC")[0].disabled = this.booleans.revolution
@@ -113,6 +113,16 @@ class Station {
 		stationsBought--;
 		document.getElementById("stationsAmount").innerHTML = `${stationsBought}/${maxStations}`
 		stations = stations.filter((element) => {return this != element})
+	}
+
+	payDemands() {
+		if (credits > 10000) {
+			const creditsCalc = -Math.floor((credits / 2) + this.revenue);
+			addCredits(creditsCalc);
+			this.booleans.revolution = false;
+			this.addUnrest(-100);
+			addEventLog(`Nanotrasen paid ${-creditsCalc} to the revolutionaries of (STATION_NAME) to release the station.`, this, "#aa0000");
+		}
 	}
 
 	sellStation() {
