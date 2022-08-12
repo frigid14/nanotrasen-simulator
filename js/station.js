@@ -111,6 +111,7 @@ class Station {
 		this.requireUpkeep = false;
 
 		stationsBought--;
+		document.getElementById("stationsAmount").innerHTML = `${stationsBought}/${maxStations}`
 		stations = stations.filter((element) => {return this != element})
 	}
 
