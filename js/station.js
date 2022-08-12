@@ -80,11 +80,11 @@ class Station {
 		div.getElementsByClassName("station_crewadd")[0].disabled = this.booleans.revolution
 		div.getElementsByClassName("station_crewremove")[0].disabled = this.booleans.revolution
 		
-		div.getElementsByClassName("station_demands")[0].disabled = !this.booleans.revolution
-		div.getElementsByClassName("station_ert")[0].disabled = !this.booleans.revolution
-		div.getElementsByClassName("station_ds")[0].disabled = !this.booleans.revolution
-		div.getElementsByClassName("station_ds")[0].disabled = true
-		
+		div.getElementsByClassName("station_demands")[0].style.display = this.booleans.revolution ? "block" : "none"
+		div.getElementsByClassName("station_ert")[0].style.display = this.booleans.revolution ? "block" : "none"
+		div.getElementsByClassName("station_ds")[0].style.display = this.booleans.revolution ? "block" : "none"
+		div.getElementsByClassName("station_ds")[0].style.display = this.booleans.revolution ? "block" : "none"
+
 		div.getElementsByClassName("station_addPPC")[0].disabled = this.booleans.revolution
 		div.getElementsByClassName("station_adddPPC")[0].disabled = this.booleans.revolution
 		div.getElementsByClassName("station_remPPC")[0].disabled = this.booleans.revolution

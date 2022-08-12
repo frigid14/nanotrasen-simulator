@@ -154,7 +154,10 @@ function addStation(station, sound=true, disableButton=true) {
 
 		<button onclick="stations[getStationByTick('${station.createdOn}')]" class="station_ert">Send ERT</button>
 		<button onclick="stations[getStationByTick('${station.createdOn}')]" class="station_ds">Send Deathsquad</button>
+		<!--
+		shenanigans
 		<button onclick="stations[getStationByTick('${station.createdOn}')]" class="station_dsOrder">Cancel Order</button><br>
+		-->
 		</details>
 	<details>
 		<summary>Crew Management</summary>
