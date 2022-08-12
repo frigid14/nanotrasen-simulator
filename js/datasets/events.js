@@ -167,10 +167,10 @@ class StationFunding extends Event {
 	threat = -1;
 
 	run(station) {
+		const creditsChange = Math.floor(Math.random() * (1000 - -100 + 1) + -1000);
 		addEventLog(this.message, station, "#aa0000");
-		addCredits(
-			Math.floor(Math.random() * (1000 - -100 + 1) + -1000)
-		)
+		addCredits(	creditsChange)
+		addRevenue(-creditsChange)
 	}
 }
 
