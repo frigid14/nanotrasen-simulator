@@ -34,6 +34,7 @@
     "%events.cargoUnauthOrder":"Cargo techs aboard (STATION_NAME) have ordered an unauthorized emergency pizza crate. Deducted credits, but more productivity.",
     "%events.salvageArtifactGood":"Salvagers aboard (STATION_NAME) have found a beneficial artifact, and have sold it for extra cash.",
     "%events.meteoriteGood":"A passing-by space dragon smashed a meteorite toward (STATION_NAME)'s salvage magnet, and the meteorite is rich of resources!",
+    "%events.meteoriteBad":"Meteorites have been detected on collision course with (STATION_NAME)! The salvage magnet was unable to catch the asteroid as they pierced through the station!",
     "%events.botanyProductivity":"Botany aboard (STATION_NAME) decides to work with Chemistry to yield faster crops, feeding the crew and selling the excess to cargo. Revenue increased, civil unrest decreased.",
     "%events.cryopodFriendly":"Salvage techs aboard (STATION_NAME) have found derelict Nanotrasen ruins, with active cryopods! The survivors are immigrated onto your station.",
     "%events.cryopodNeutral":"Salvage techs aboard (STATION_NAME) have found derelict Nanotrasen ruins, with active cryopods! The survivors are immigrated onto your station, but not without some unrest from the crew.",

@@ -208,7 +208,7 @@ class MeteoriteGood extends Event {
 
 class MeteoriteBad extends MeteoriteGood {
 	name = "Meteor: Bad"
-	message = "Meteorites have been detected on collision course with (STATION_NAME)! The salvage magnet was unable to catch the magnets as they pierced through the station!"
+	message = "%events.meteoriteBad"
 	threat = -1
 
 	changedCredits = -150
