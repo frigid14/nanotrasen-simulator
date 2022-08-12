@@ -1,5 +1,8 @@
 {
+    "%debug.testMessage":"Hello world! Now broadcasting formatted message: (FORMAT)|(FORMAT_2)",
+
     "%head.title":"Nanotrasen Simulator",
+
     "%body.title":"Nanotrasen Simulator",
     "%body.note":"You are an AI trained to manage the entirety of Nanotrasen. This is a simulation of Nanotrasen that is 99.99% accurate.",
     "%body.exportData":"Export Data",
@@ -12,6 +15,7 @@
     "%body.stations":"Stations",
     "%body.buyStation":"Buy Station",
     "%body.events":"Events",
+
     "%events.nothingHappening":"There seems to be nothing happening currently...",
     "%events.buyStationCapacity":"Nanotrasen purchased extra station capacity for ${capacityPrice} credits.",
     "%events.buyStation":"Nanotrasen purchased (STATION_NAME) for ${stationPrice} credits.",
