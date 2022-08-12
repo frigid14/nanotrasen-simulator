@@ -150,7 +150,7 @@ function addStation(station, sound=true, disableButton=true) {
 	<details>
 		<summary>Station Controls</summary>
 		<button onclick="stations[getStationByTick('${station.createdOn}')].sellStation()" class="station_sell">Sell Station</button>
-		<button onclick="let station = stations[getStationByTick('${station.createdOn}')].payDemands()" class="station_demands">Pay Demands (500,000C)</button>
+		<button onclick="let station = stations[getStationByTick('${station.createdOn}')].payDemands()" class="station_demands">Pay Demands</button>
 
 		<button onclick="stations[getStationByTick('${station.createdOn}')]" class="station_ert">Send ERT</button>
 		<button onclick="stations[getStationByTick('${station.createdOn}')]" class="station_ds">Send Deathsquad</button>
