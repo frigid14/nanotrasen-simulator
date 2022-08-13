@@ -81,9 +81,9 @@ class Station {
 		div.getElementsByClassName("station_crewremove")[0].disabled = this.booleans.revolution
 		
 		div.getElementsByClassName("station_demands")[0].style.display = this.booleans.revolution ? "block" : "none"
-		div.getElementsByClassName("station_ert")[0].style.display = this.booleans.revolution ? "block" : "none"
-		div.getElementsByClassName("station_ds")[0].style.display = this.booleans.revolution ? "block" : "none"
-		div.getElementsByClassName("station_ds")[0].style.display = this.booleans.revolution ? "block" : "none"
+		// div.getElementsByClassName("station_ert")[0].style.display = this.booleans.revolution ? "block" : "none"
+		// div.getElementsByClassName("station_ds")[0].style.display = this.booleans.revolution ? "block" : "none"
+		// div.getElementsByClassName("station_ds")[0].style.display = this.booleans.revolution ? "block" : "none"
 
 		div.getElementsByClassName("station_addPPC")[0].disabled = this.booleans.revolution
 		div.getElementsByClassName("station_adddPPC")[0].disabled = this.booleans.revolution
@@ -101,7 +101,7 @@ class Station {
 		// This is the main thing that destroys the Station instance
 		// And the div.
 
-		const div = document.getElementById(this.createdOn.toLocaleString());
+		const div = document.getElementById(this.createdOn);
 		
 		if (div != null) {
 			div.remove();			
@@ -127,11 +127,8 @@ class Station {
 
 	sellStation() {
 		addEventLog(`Nanotrasen sold (STATION_NAME) ${credits<this.revenue ? "at a profit" : "at a loss"}.`, this, `#000000`)
-		if (credits > this.revenue) {
-			addCredits(-credits);
-			this.destroy();
-		}
-		addCredits(Math.floor(credits / 2));
+		if (credits > this.revenue)	addCredits(-Math.floor(credits / 2));
+		else addCredits(Math.floor(credits / 2));
 		this.destroy();
 
 	}
