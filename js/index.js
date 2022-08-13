@@ -150,12 +150,13 @@ function addStation(station, sound=true, disableButton=true) {
 	<details>
 		<summary>Station Controls</summary>
 		<button onclick="stations[getStationByTick('${station.createdOn}')].sellStation()" class="station_sell">Sell Station</button>
-		<button onclick="stations[getStationByTick('${station.createdOn}')].booleans.revolution = false; addCredits(-500000); addUnrest(-50);" class="station_demands">Pay Demands (500000C)</button>
+		<button onclick="let station = stations[getStationByTick('${station.createdOn}')].payDemands()" class="station_demands">Pay Demands</button>
 
 		<!--
-		i WAS gonna do ERT but this other mf maintainer Anthemic merged Loc so
 		<button onclick="stations[getStationByTick('${station.createdOn}')]" class="station_ert">Send ERT</button>
 		<button onclick="stations[getStationByTick('${station.createdOn}')]" class="station_ds">Send Deathsquad</button>
+		
+		shenanigans
 		<button onclick="stations[getStationByTick('${station.createdOn}')]" class="station_dsOrder">Cancel Order</button><br>
 		-->
 		</details>

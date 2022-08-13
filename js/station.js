@@ -80,11 +80,11 @@ class Station {
 		div.getElementsByClassName("station_crewadd")[0].disabled = this.booleans.revolution
 		div.getElementsByClassName("station_crewremove")[0].disabled = this.booleans.revolution
 		
-		div.getElementsByClassName("station_demands")[0].disabled = !this.booleans.revolution
-		// div.getElementsByClassName("station_ert")[0].disabled = !this.booleans.revolution
-		// div.getElementsByClassName("station_ds")[0].disabled = !this.booleans.revolution
-		// div.getElementsByClassName("station_ds")[0].disabled = true
-		
+		div.getElementsByClassName("station_demands")[0].style.display = this.booleans.revolution ? "block" : "none"
+		// div.getElementsByClassName("station_ert")[0].style.display = this.booleans.revolution ? "block" : "none"
+		// div.getElementsByClassName("station_ds")[0].style.display = this.booleans.revolution ? "block" : "none"
+		// div.getElementsByClassName("station_ds")[0].style.display = this.booleans.revolution ? "block" : "none"
+
 		div.getElementsByClassName("station_addPPC")[0].disabled = this.booleans.revolution
 		div.getElementsByClassName("station_adddPPC")[0].disabled = this.booleans.revolution
 		div.getElementsByClassName("station_remPPC")[0].disabled = this.booleans.revolution
@@ -101,7 +101,7 @@ class Station {
 		// This is the main thing that destroys the Station instance
 		// And the div.
 
-		const div = document.getElementById(this.createdOn.toLocaleString());
+		const div = document.getElementById(this.createdOn);
 		
 		if (div != null) {
 			div.remove();			
@@ -115,13 +115,20 @@ class Station {
 		stations = stations.filter((element) => {return this != element})
 	}
 
+	payDemands() {
+		if (credits > 10000) {
+			const creditsCalc = -Math.floor((credits / 2) + this.revenue);
+			addCredits(creditsCalc);
+			this.booleans.revolution = false;
+			this.addUnrest(-100);
+			addEventLog(`Nanotrasen paid ${-creditsCalc} to the revolutionaries of (STATION_NAME) to release the station.`, this, "#aa0000");
+		}
+	}
+
 	sellStation() {
 		addEventLog(`Nanotrasen sold (STATION_NAME) ${credits<this.revenue ? "at a profit" : "at a loss"}.`, this, `#000000`)
-		if (credits > this.revenue) {
-			addCredits(-credits);
-			this.destroy();
-		}
-		addCredits(Math.floor(credits / 2));
+		if (credits > this.revenue)	addCredits(-Math.floor(credits / 2));
+		else addCredits(Math.floor(credits / 2));
 		this.destroy();
 
 	}
