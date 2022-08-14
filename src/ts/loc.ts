@@ -1,8 +1,11 @@
 class Loc {
-    constructor(lang, table) {
-        this.lang = lang;
-        this.table = table;
-    }
+    lang: string;
+    table: object;
+
+    // constructor(lang, table) {
+    //     this.lang = lang;
+    //     this.table = table;
+    // }
 
     async init() {
         this.lang = window.navigator.language;
@@ -14,11 +17,12 @@ class Loc {
      * @param {string} lang 
      * @returns Contents of `lang`.json
      */
-    getKeys(lang) {
-        return fetch("assets/loc/" + lang + ".json")
-            .then(response => response.json())
-            .then(data => data)
-            .catch(error => console.log(error));
+    getKeys(lang): object {
+        // return fetch("assets/loc/" + lang + ".json")
+        //     .then(response => response.json())
+        //     .then(data => data)
+        //     .catch(error => console.log(error));
+        return require("../../public/assets/loc/" + lang + ".json")
     }
 
     /**
@@ -68,27 +72,27 @@ class Loc {
     localizeDOM() {
         const allElements = document.querySelectorAll("*");
         for (var element of allElements) {
-            if (!element.firstChild || !element.firstChild.data) {
+            if (!element.firstChild || !(element.firstChild as HTMLElement).nodeValue) {
                 continue;
             }
 
-            const text = element.firstChild.data;
+            const text = (element.firstChild as HTMLElement).nodeValue!;
 
             if (text.includes("\n")) {
                 continue;
             }
             if (text.includes(" ")) {
                 const substrings = text.split(" ");
-                var buffer = [];
+                var buffer: string[] = [];
     
                 for (var substring of substrings) {
                     buffer.push(loc.getString(substring));
                 }
     
                 const final = buffer.join(" ");
-                element.firstChild.data = final;
+                (element.firstChild as HTMLElement).nodeValue = final;
             } else {
-                element.firstChild.data = loc.getString(text);
+                (element.firstChild as HTMLElement).nodeValue = loc.getString(text);
             }
         }
     }
@@ -100,5 +104,5 @@ async function initializeLoc(loc) {
     console.log("DOM localized.");
 }
 
-var loc = new Loc();
+export var loc = new Loc();
 initializeLoc(loc);

@@ -1,4 +1,4 @@
-const STATION_NAMES = [
+export const STATION_NAMES = [
 	"Stanford",
 	"Dorf",
 	"Alium",
@@ -83,7 +83,7 @@ const STATION_NAMES = [
 	"Refactor",
 ]
 
-const STATION_PREFIXES = [
+export const STATION_PREFIXES = [
 	"Imperium",
 	"Heretical",
 	"Cuban",
@@ -127,7 +127,7 @@ const STATION_PREFIXES = [
 	"Burning",
 ]
 
-const STATION_SUFFIXES = [
+export const STATION_SUFFIXES = [
 	"Station",
 	"Frontier",
 	"Suffix",

@@ -1,19 +1,35 @@
-const STARTING_CREDITS = 1000
-var stations = []; // I apologize deeply for the sin I have comitted.
-let maxStations = 5;
-let stationsBought = 0;
-let credits = 0 //DO NOT MODIFY
-let stationPrice = 1000;
-let capacityPrice = 15000;
+import { welcome } from "./audio";
+import { addEventLog } from "./classes/gameevent";
+import { STATION_NAMES, STATION_PREFIXES, STATION_SUFFIXES } from "./datasets/dataset";
+import { setThreatLevel, threatLevel } from "./eventmanager";
+import { loc } from "./loc";
+import { Station } from "./station";
+import { setTick, tick, tickNumber } from "./tick";
 
-let ertSquadrons = 3;
-let dsSquadrons = 0;
+const STARTING_CREDITS = 1000
+export let stations = []; // I apologize deeply for the sin I have comitted.
+export let maxStations = 5;
+export let stationsBought = 0;
+export let credits = 0 //DO NOT MODIFY
+export let stationPrice = 1000;
+export let capacityPrice = 15000;
+
+export let ertSquadrons = 3;
+export let dsSquadrons = 0;
+
+export function changeStationsBought(newS) {
+	stationsBought = newS;
+}
+
+export function changeStations(station) {
+	stations = station;
+}
 
 /**
  * Adds an integer amount of credits
  * @param {number} credits_added 
  */
-function addCredits(credits_added) {
+export function addCredits(credits_added) {
 	credits += credits_added;
 	document.getElementById("credits").textContent = `${credits.toLocaleString()}`;
 	if (credits > 0) {
@@ -28,9 +44,9 @@ function addCredits(credits_added) {
 /**
  * Allows you to buy more station capacity for `capacityPrice` amount of credits.
  */
-function buyStationCapacity() {
+export function buyStationCapacity() {
 	if (credits >= capacityPrice) {
-		addEventLog(loc.formatString("%events.buyStationCapacity", [capacityPrice]), new Station("", 0,0,0,[]), "#00aa00")
+		addEventLog(loc.formatString("%events.buyStationCapacity", [capacityPrice]), new Station("", 0,0,0,[],0,false,false,false,0), "#00aa00")
 		addCredits(-capacityPrice)
 		maxStations++;
 		capacityPrice = Math.floor(capacityPrice *= 1.5);
@@ -43,7 +59,7 @@ function buyStationCapacity() {
  * Concentrates all the data in memory, into a base64 string
  * @returns base64 string
  */
-function exportData() {
+export function exportData() {
 	const fullData = {
 		stationAmount: 0,
 		stationPrice: 0,
@@ -102,10 +118,10 @@ function importData(data) {
 		stationsBought = packedData.stationAmount
 		stationPrice = packedData.stationPrice
 		capacityPrice = packedData.capacityPrice
-		tickNumber = packedData.tickNumber
 		credits = packedData.credits
-		threatLevel = packedData.threat
 		maxStations = packedData.maxStations
+		setThreatLevel(packedData.threat);
+		setTick(packedData.tickNumber);
 
 		document.getElementById("stationsAmount").innerHTML = `${stationsBought}/${maxStations}`
 		document.getElementById("capacityPrice").innerHTML = `(${capacityPrice})`
@@ -123,7 +139,7 @@ function importData(data) {
  * @param {Number} tickN 
  * @returns station index, else -1
  */
-function getStationByTick(tickN) {
+export function getStationByTick(tickN) {
 	return stations.findIndex(station => station.createdOn == tickN);
 }
 
@@ -133,7 +149,7 @@ function getStationByTick(tickN) {
  * @param {boolean} sound 
  * @param {boolean} disableButton 
  */
-function addStation(station, sound=true, disableButton=true) {
+export function addStation(station, sound=true, disableButton=true) {
 	stations.push(station);
 	const div = document.createElement("div")
 	div.classList.add('station');
@@ -179,9 +195,10 @@ function addStation(station, sound=true, disableButton=true) {
 	div.id = station.createdOn
 	
 	if (disableButton) {
-		document.getElementById("buyStation").disabled = true
+		const buyStationB = (document.getElementById("buyStation") as HTMLButtonElement);
+		buyStationB.disabled = true
 		setTimeout(function(){
-			document.getElementById("buyStation").disabled = false
+			buyStationB.disabled = false
 		}, 5000)
 	}
 	if (sound) {
@@ -210,7 +227,7 @@ function generateStationName() {
 /**
  * Buy a station for a `stationPrice` amount of price.
  */
-function buyStation() {
+export function buyStation() {
 	// check if we have enough credits and we havent hit the maxcap
 	if (credits >= stationPrice && stationsBought < maxStations) {
 		// create a new station, this'll be appended
@@ -255,3 +272,30 @@ window.addEventListener('load', function () {
 // Haha. Funny.
 console.log('%cHeh. A snooper. Go check out the source code instead of using addCredits(), skid.', 'font-size: 32px; text-shadow: -5px -5px 0 #0019FF, 5px -5px 0 #0019FF, -5px 5px 0 #0019FF, 5px 5px 0 #0019FF;');
 console.log('%chttps://github.com/2G2C/nanotrasen-simulator', 'font-size: 16px; text-shadow: -5px -5px 0 #0019FF, 5px -5px 0 #0019FF, -5px 5px 0 #0019FF, 5px 5px 0 #0019FF;');
+
+// I LOVE WEBPACK! I 100% DONT HATE IT AT ALL!
+function getFirstByClass(className: string): HTMLElement {
+	if (document.getElementsByClassName(className)[0] != null) {
+		return document.getElementsByClassName(className)[0] as HTMLElement;
+	}
+}
+
+if (getFirstByClass("settings_export") != null) (getFirstByClass("settings_export") as HTMLButtonElement).onclick = () => {
+	navigator.clipboard.writeText(exportData());
+	alert('Saved to clipboard!')
+}
+if (getFirstByClass("settings_delete") != null) (getFirstByClass("settings_delete") as HTMLButtonElement).onclick = () => {
+	localStorage.removeItem('nt_sim_data');
+	alert('Deleted all saved data.');
+	location.reload()
+}
+if (getFirstByClass("settings_import") != null) (getFirstByClass("settings_import") as HTMLButtonElement).onclick = () => {
+	const data=prompt('Paste data import code');
+	importData(data)
+}
+if (getFirstByClass("settings_save") != null) (getFirstByClass("settings_save") as HTMLButtonElement).onclick = () => {
+	localStorage.setItem('nt_sim_data', exportData());
+	alert('Saved data!')
+}
+if (document.getElementById("buy_station_capacity") != null) (document.getElementById("buy_station_capacity") as HTMLButtonElement).onclick = buyStationCapacity
+if (document.getElementById("buyStation") != null) (document.getElementById("buyStation") as HTMLButtonElement).onclick = buyStation

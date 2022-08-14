@@ -1,49 +1,10 @@
-let threatLevel = 20;
+import { addCredits, credits, stations } from ".";
+import { eventPool } from "./datasets/events";
 
-/**
- * Abstract event class that all Events inherit from.
- * @abstract
- */
-class Event {
-	name = "Null";
-	message = "Nothing. What did you expect."
-	color = "#000000"
-	threat = null;
+export let threatLevel: number = 20;
 
-	changedCredits = 0
-	changedRevenue = 0
-	changedUnrest = 0
-	changedCrew = 0
-
-	minimumCredits = 0
-	minimumUnrest = 0
-	minimumUptime = 0
-	minimumCrew = 0
-
-	run(station) {addEventLog(this.message, station, this.color)}
-}
-
-/**
- * Adds a log in the Events category with a message and color.
- * @param {string} message 
- * @param {Station} station 
- * @param {string} color 
- */
-function addEventLog(message, station, color) {
-	const id = (Math.random() + 1).toString(36).substring(7); // get random ID string
-	let paragraph = document.createElement("p"); // create paragraph
-
-	// Replace every instance of (STATION_NAME) with the actual station name.
-	message = loc.getString(message);
-	message = message.replace("(STATION_NAME)", `<strong>${station.name}</strong>`)
-	// TODO: Make this better
-	paragraph.innerHTML = `<button onclick="document.getElementById('${id}').parentNode.removeChild(document.getElementById('${id}'))">Close event</button> ${message}`;
-
-	// Change styles/id
-	paragraph.style.color = color
-	paragraph.id = id;
-
-	document.getElementById("events").prepend(paragraph)
+export function setThreatLevel(threat: number) {
+	threatLevel = threat
 }
 
 // thanks stack overflow.
@@ -69,13 +30,13 @@ function shuffleArray(array) {
 /**
  * Calculates a threat level and runs the corresponding event from the `eventPool`.
  */
-function runRandomEvent() {
+export function runRandomEvent() {
 	// Check if we have ANY stations at all. Stop yelling at me JS.
 	if (stations.length > 0) {
 		// Calculate threat level, either +10 or -10
 		// WHY THE FUCK IS MY THREAT LEVEL UNDEFINED?
 		// FUCK IT. IM RENAMING PREVIOUS THREAT LEVEL TO CURRENT THREAT LEVEL
-		threatLevel = parseInt(Math.floor(Math.random() * 2) == 0 ? threatLevel + 10 : threatLevel - 10);
+		threatLevel = Math.floor(Math.random() * 2) == 0 ? threatLevel + 10 : threatLevel - 10;
 
 		console.log(threatLevel);
 		
@@ -93,11 +54,11 @@ function runRandomEvent() {
 
 			// Event checks
 			if (
-				(threatLevel == parseInt(event.threat) || parseInt(event.threat) == -1) &&
-				credits >= parseInt(event.minimumCredits) &&
-				station.unrest >= parseInt(event.minimumUnrest) &&
-				station.uptime >= parseInt(event.minimumUptime) &&
-				station.crew >= parseInt(event.minimumCrew)
+				(threatLevel == event.threat || event.threat == -1) &&
+				credits >= event.minimumCredits &&
+				station.unrest >= event.minimumUnrest &&
+				station.uptime >= event.minimumUptime &&
+				station.crew >= event.minimumCrew
 			) {
 				// If so run event on the station
 				
@@ -117,7 +78,7 @@ function runRandomEvent() {
  * Runs a specific event, if you want a random event use `runRandomEvent()`
  * @param {Event} event 
  */
-function runEvent(event, station) {
+export function runEvent(event, station) {
 	addCredits(parseInt(event.changedCredits));
 	station.addRevenue(parseInt(event.changedRevenue));
 	station.addUnrest(parseInt(event.changedUnrest), false);

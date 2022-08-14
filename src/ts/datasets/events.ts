@@ -1,4 +1,8 @@
-class Rumor extends Event {
+import { addCredits } from "..";
+import { intercept, malfai, meteors, operatives, spanomalies, wizards } from "../audio";
+import { addEventLog, GameEvent } from "../classes/gameevent";
+
+abstract class Rumor extends GameEvent {
 	name = "Rumor"
 	message = "%events.rumor";
 	color = "#aa0000"
@@ -10,7 +14,7 @@ class Rumor extends Event {
 	minimumCrew = 40
 }
 
-class AntagMajor extends Event {
+class AntagMajor extends GameEvent {
 	name = "Antag Major"
 	message = "%events.antagMajor";
 	color = "#aa0000"
@@ -24,7 +28,7 @@ class AntagMajor extends Event {
 	minimumCrew = 30
 }
 
-class ThiefCaughtFail extends Event {
+class ThiefCaughtFail extends GameEvent {
 	name = "Thief";
 	message = "%events.thiefCaughtFail";
 	color = "#00aa00";
@@ -36,7 +40,7 @@ class ThiefCaughtFail extends Event {
 	minimumCrew = 40
 }
 
-class ThiefCaughtSucceed extends Event {
+class ThiefCaughtSucceed extends GameEvent {
 	name = "Thief";
 	message = "%events.thiefCaughtSucceed";
 	color = "#aa0000"
@@ -50,7 +54,7 @@ class ThiefCaughtSucceed extends Event {
 	minimumCrew = 40
 }
 
-class EnemyCommunicationIntercepted extends Event {
+class EnemyCommunicationIntercepted extends GameEvent {
 	name = "Enemy Communication Intercepted"
 	message = "%events.enemyCommunicationIntercepted";
 	threat = -1
@@ -66,7 +70,7 @@ class EnemyCommunicationIntercepted extends Event {
 	}
 }
 
-class PlasmaBubble extends Event {
+class PlasmaBubble extends GameEvent {
 	name = "Plasma Bubble"
 	message = "%events.plasmaBubble"
 	threat = -1
@@ -79,7 +83,7 @@ class PlasmaBubble extends Event {
 	minimumCrew = 10
 }
 
-class ThiefDetected extends Event {
+class ThiefDetected extends GameEvent {
 	name = "Thief";
 	message = "%events.thiefDetected"
 	threat = 30;
@@ -90,7 +94,7 @@ class ThiefDetected extends Event {
 	minimumCrew = 40
 }
 
-class TraitorDetained extends Event {
+class TraitorDetained extends GameEvent {
 	name = "Syndicate Agent";
 	message = "%events.traitorDetained"
 	threat = 30;
@@ -135,7 +139,7 @@ class ForeignLifeformsMinor extends Rumor {
 	threat = 50;
 }
 
-class InsanityWave extends Event {
+class InsanityWave extends GameEvent {
 	name = "Insanity Wave";
 	message = "%events.insanityWave";
 	threat = 50;
@@ -144,7 +148,7 @@ class InsanityWave extends Event {
 	changedUnrest = 35
 }
 
-class BluespaceAnomaly extends Event {
+class BluespaceAnomaly extends GameEvent {
 	name = "Bluespace Anomaly";
 	message = "%events.bluespaceAnomaly";
 	threat = 50;
@@ -161,7 +165,7 @@ class BluespaceAnomaly extends Event {
 	}
 }
 
-class StationFunding extends Event {
+class StationFunding extends GameEvent {
 	name = "Station Funding"
 	message = "%events.stationFunding";
 	threat = -1;
@@ -169,12 +173,12 @@ class StationFunding extends Event {
 	run(station) {
 		const creditsChange = Math.floor(Math.random() * (1000 - -100 + 1) + -1000);
 		addEventLog(this.message, station, "#aa0000");
-		addCredits(	creditsChange)
-		addRevenue(-creditsChange)
+		addCredits(	creditsChange);
+		station.addRevenue(-creditsChange);
 	}
 }
 
-class CargoUnauthOrder extends Event {
+class CargoUnauthOrder extends GameEvent {
 	name = "Unauthorized Cargo Order"
 	message = "%events.cargoUnauthOrder";
 	threat = -1;
@@ -184,7 +188,7 @@ class CargoUnauthOrder extends Event {
 	changedRevenue = 50
 }
 
-class SalvageArtifactGood extends Event {
+class SalvageArtifactGood extends GameEvent {
 	name = "Salvage Artifact: Good"
 	message = "%events.salvageArtifactGood";
 	threat = -1;
@@ -193,7 +197,7 @@ class SalvageArtifactGood extends Event {
 	changedRevenue = 50
 }
 
-class MeteoriteGood extends Event {
+class MeteoriteGood extends GameEvent {
 	name = "Meteor: Good"
 	message = "%events.meteoriteGood";
 	threat = -1
@@ -201,7 +205,7 @@ class MeteoriteGood extends Event {
 	changedCredits = 250
 
 	run(station) {
-		addEventLog(this.message, station);
+		addEventLog(this.message, station, this.color);
 		meteors.play();
 	}
 }
@@ -214,7 +218,7 @@ class MeteoriteBad extends MeteoriteGood {
 	changedCredits = -150
 }
 
-class BotanyProductivity extends Event {
+class BotanyProductivity extends GameEvent {
 	name = "Productive Botany"
 	message = "%events.botanyProductivity";
 
@@ -222,14 +226,14 @@ class BotanyProductivity extends Event {
 	changedUnrest = -25
 }
 
-class CryopodFriendly extends Event {
+class CryopodFriendly extends GameEvent {
 	name = "Cryopod: Friendly"
 	message = "%events.cryopodFriendly"
 
 	changedCrew = 5
 }
 
-class CryopodNeutral extends Event {
+class CryopodNeutral extends GameEvent {
 	name = "Cryopod: Neutral"
 	message = "%events.cryopodNeutral"
 
@@ -237,7 +241,7 @@ class CryopodNeutral extends Event {
 	changedUnrest = 15
 }
 
-class CryopodHostile extends Event {
+class CryopodHostile extends GameEvent {
 	name = "Cryopod: Hostile"
 	message = "%events.cryopodHostile"
 
@@ -245,7 +249,7 @@ class CryopodHostile extends Event {
 	changedUnrest = 20
 }
 
-class NuclearEmergencyFailure extends Event {
+class NuclearEmergencyFailure extends GameEvent {
 	name = "Failed Nuclear Operation"
 	message = "%events.nuclearEmergencyFailure"
 	threat = 70;
@@ -294,7 +298,7 @@ class BloodCultSuccess extends AntagMajor {
 	}
 }
 
-class RevolutionSuccess extends Event {
+export class RevolutionSuccess extends GameEvent {
 	name = "Viva Revolution!"
 	message = "%events.revolutionSuccess"
 	threat = -1;
@@ -322,7 +326,7 @@ class WizardSuccess extends AntagMajor {
 	}
 }
 
-class Tragedy extends Event {
+class Tragedy extends GameEvent {
 	// -1 threat means it can happen anytime.
 	name = "Tragedy"
 	message = "%events.tragedy"
@@ -332,7 +336,7 @@ class Tragedy extends Event {
 }
 
 
-const eventPool = [
+export const eventPool = [
 	new NuclearEmergencySuccess(),
 	new WizardSuccess(),
 	new MalfAISuccess(),
