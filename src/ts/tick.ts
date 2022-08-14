@@ -2,7 +2,7 @@ import { exportData, stations } from ".";
 import { runRandomEvent } from "./eventmanager";
 import { Station } from "./station";
 
-export let tickNumber: number = 0; // So we know what tick it is. Can be manipulated by importData
+export let tickNumber = 0; // So we know what tick it is. Can be manipulated by importData
 
 export function setTick(tickNum: number) {
 	tickNumber = tickNum;

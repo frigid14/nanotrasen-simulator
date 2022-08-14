@@ -8,7 +8,7 @@ import { loc } from "../loc";
  */
  export function addEventLog(message, station, color) {
 	const id = (Math.random() + 1).toString(36).substring(7); // get random ID string
-	let paragraph = document.createElement("p"); // create paragraph
+	const paragraph = document.createElement("p"); // create paragraph
 
 	// Replace every instance of (STATION_NAME) with the actual station name.
 	message = loc.getString(message);
@@ -28,20 +28,20 @@ import { loc } from "../loc";
  * @abstract
  */
  export abstract class GameEvent {
-	name: string = "Null";
-	message: string = "Nothing. What did you expect."
-	color: string = "#000000"
-	threat: number = 0;
+	name = "Null";
+	message = "Nothing. What did you expect."
+	color = "#000000"
+	threat = 0;
 
-	changedCredits: number = 0
-	changedRevenue: number = 0
-	changedUnrest: number = 0
-	changedCrew: number = 0
+	changedCredits = 0
+	changedRevenue = 0
+	changedUnrest = 0
+	changedCrew = 0
 
-	minimumCredits: number = 0
-	minimumUnrest: number = 0
-	minimumUptime: number = 0
-	minimumCrew: number = 0
+	minimumCredits = 0
+	minimumUnrest = 0
+	minimumUptime = 0
+	minimumCrew = 0
 
 	run(station) {addEventLog(this.message, station, this.color)}
 }

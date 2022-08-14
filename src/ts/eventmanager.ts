@@ -1,7 +1,7 @@
 import { addCredits, credits, stations } from ".";
 import { eventPool } from "./datasets/events";
 
-export let threatLevel: number = 20;
+export let threatLevel = 20;
 
 export function setThreatLevel(threat: number) {
 	threatLevel = threat
@@ -49,7 +49,7 @@ export function runRandomEvent() {
 		// For everything in the event pool
 		// Yes. I know this is bad. Refactor it.
 		for (let i = 0; i < eventPool.length; i++) {
-			let station = stations[Math.floor(Math.random() * stations.length)]
+			const station = stations[Math.floor(Math.random() * stations.length)]
 			const event = eventPool[i];
 
 			// Event checks

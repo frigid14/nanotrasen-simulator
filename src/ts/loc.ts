@@ -54,7 +54,7 @@ class Loc {
      * @returns {string}
      */
     formatString(key, args) {
-        var string = this.getString(key);
+        let string = this.getString(key);
         const regExp = /\${[0-9a-zA-Z]*}/g;
         const array = string.match(regExp);
 
@@ -71,7 +71,7 @@ class Loc {
      */
     localizeDOM() {
         const allElements = document.querySelectorAll("*");
-        for (var element of allElements) {
+        for (const element of allElements) {
             if (!element.firstChild || !(element.firstChild as HTMLElement).nodeValue) {
                 continue;
             }
@@ -83,9 +83,9 @@ class Loc {
             }
             if (text.includes(" ")) {
                 const substrings = text.split(" ");
-                var buffer: string[] = [];
+                const buffer: string[] = [];
     
-                for (var substring of substrings) {
+                for (const substring of substrings) {
                     buffer.push(loc.getString(substring));
                 }
     

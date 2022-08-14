@@ -14,8 +14,8 @@ export let credits = 0 //DO NOT MODIFY
 export let stationPrice = 1000;
 export let capacityPrice = 15000;
 
-export let ertSquadrons = 3;
-export let dsSquadrons = 0;
+export const ertSquadrons = 3;
+export const dsSquadrons = 0;
 
 export function changeStationsBought(newS) {
 	stationsBought = newS;

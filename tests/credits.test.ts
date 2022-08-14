@@ -1,4 +1,4 @@
-import { addCredits, buyStation, credits } from "../src/ts";
+import { buyStation, credits } from "../src/ts";
 
 test("buyStation credits test", () => {
     document.body.innerHTML = `

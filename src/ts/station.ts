@@ -17,9 +17,9 @@ enum SHUTTLE_STATUS {
  * Station class.
  */
 export class Station {
-	name: string = "Station Station"
-	revenue: number = 1000
-	unrest: number = 0
+	name = "Station Station"
+	revenue = 1000
+	unrest = 0
 	upgrades = [] // No upgrades. Fuck you.
 	shuttleSent: SHUTTLE_STATUS = SHUTTLE_STATUS.Command
 	booleans: {[name: string]: boolean} = {
@@ -27,13 +27,13 @@ export class Station {
 		ertSent: false,
 		decomissioned: false,
 	}
-	createdOn: number = 0;
+	createdOn = 0;
 	
-	payPerCrewmember: number = 15;
-	crewmemberPrice: number = 150;
-	crew: number = 5;
+	payPerCrewmember = 15;
+	crewmemberPrice = 150;
+	crew = 5;
 
-	requireUpkeep: boolean = true;
+	requireUpkeep = true;
 
 	constructor(name,revenue,unrest,tickCreated,upgrades,ppc,revs,ertSent,decomissioned,shuttleSent) {
 		this.name = name
