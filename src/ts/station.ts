@@ -161,6 +161,8 @@ export class Station {
 		if (credits > this.revenue)	addCredits(-Math.floor(credits / 2));
 		else addCredits(Math.floor(credits / 2));
 
+		console.log(this.destroy)
+
 		this.destroy();
 	}
 
