@@ -6,16 +6,16 @@ import { loc } from "./loc";
 import { Station } from "./station";
 import { setTick, tick, tickNumber } from "./tick";
 
-const STARTING_CREDITS = 1000
-export let stations = []; // I apologize deeply for the sin I have comitted.
-export let maxStations = 5;
-export let stationsBought = 0;
-export let credits = 0 //DO NOT MODIFY
-export let stationPrice = 1000;
-export let capacityPrice = 15000;
+const STARTING_CREDITS: number = 1000
+export let stations: Station[] = []; // I apologize deeply for the sin I have comitted.
+export let maxStations: number = 5;
+export let stationsBought: number = 0;
+export let credits: number = 0 //DO NOT MODIFY
+export let stationPrice: number = 1000;
+export let capacityPrice: number = 15000;
 
-export const ertSquadrons = 3;
-export const dsSquadrons = 0;
+export const ertSquadrons: number = 3;
+export const dsSquadrons: number = 0;
 
 export function changeStationsBought(newS) {
 	stationsBought = newS;
@@ -139,8 +139,9 @@ function importData(data) {
  * @param {Number} tickN 
  * @returns station index, else -1
  */
-export function getStationByTick(tickN) {
-	return stations.findIndex(station => station.createdOn == tickN);
+export function getStationByTick(tickN): number {
+	const station = stations.findIndex(station => station.createdOn == tickN);
+	return station;
 }
 
 /**

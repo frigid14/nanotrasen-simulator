@@ -17,11 +17,11 @@
 	<script defer src="js/eventmanager.js"></script>
 	<script defer src="js/datasets/events.js"></script>
 	<script defer src="js/datasets/dataset.js"></script> -->
-	<script defer src="js/bundle.js"></script>
 	<!-- <script>var exports = {};</script> -->
+	<script defer src="js/bundle.js"></script>
 
-	<link rel="icon" href="assets/images/nanotrasen_sim_512.png" type="image/png" sizes="16x16">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="icon" href="public/assets/images/nanotrasen_sim_512.png" type="image/png" sizes="16x16">
+	<link rel="stylesheet" href="public/css/style.css">
 	<title>%head.title</title>
 </head>
 <body>
@@ -41,13 +41,12 @@
 		<details id="stationcontent">
 			<summary>%body.stations (<span id="stationsAmount">0/5</span>)</summary>
 			<button onclick="buyStation()" id="buyStation">%body.buyStation</button>
-			<div id="stations">
-			</div>
-		</div><br>
+			<div id="stations"></div>
+		</details><br>
 		<details id="events" open>
 			<summary>%body.events</summary>
 			<p style="color: gray;">%events.nothingHappening</p>
-		</div><br>
+		</details><br>
 	</div>
 </body>
 </html>

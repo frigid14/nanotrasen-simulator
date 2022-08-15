@@ -109,7 +109,8 @@ export class Station {
 			(div.getElementsByClassName("station_overtaken")[0] as HTMLParagraphElement).style.display = this.booleans.revolution ? "block" : "none";
 
 			// Buttons
-			(div.getElementsByClassName("station_sell")[0] as HTMLButtonElement).onclick = this.sellStation;
+			// TODO: FIX THE DAMN BUTTONS
+			(div.getElementsByClassName("station_sell")[0] as HTMLButtonElement).onclick = () => {};
 			(div.getElementsByClassName("station_crewadd")[0] as HTMLButtonElement).onclick = () => {};
 			(div.getElementsByClassName("station_crewremove")[0] as HTMLButtonElement).onclick = () => {};
 			(div.getElementsByClassName("station_demands")[0] as HTMLButtonElement).onclick = () => {};
@@ -160,8 +161,7 @@ export class Station {
 		if (credits > this.revenue)	addCredits(-Math.floor(credits / 2));
 		else addCredits(Math.floor(credits / 2));
 
-		// this.destroy();
-		getStationByTick
+		this.destroy();
 	}
 
 	addRevenue(revenue) {

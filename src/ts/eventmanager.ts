@@ -68,7 +68,7 @@ export function runRandomEvent() {
 				break;
 			} else {
 				// Otherwise reset and try again
-				console.log(`"${event.name}" failed to run, failed checks. Threat level: ${threatLevel}, event threat level: ${station.threat}`)
+				console.log(`"${event.name}" failed to run, failed checks. Threat level: ${threatLevel}, event threat level: ${event.threat}`)
 			}
 		}
 	}
