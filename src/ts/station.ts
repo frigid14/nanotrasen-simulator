@@ -17,17 +17,17 @@ enum SHUTTLE_STATUS {
  * Station class.
  */
 export class Station {
-	name = "Station Station"
-	revenue = 1000
-	unrest = 0
-	upgrades = [] // No upgrades. Fuck you.
-	shuttleSent: SHUTTLE_STATUS = SHUTTLE_STATUS.Command
-	booleans: {[name: string]: boolean} = {
+	public readonly name = "Station Station";
+	public revenue = 1000
+	public unrest = 0
+	public upgrades = [] // No upgrades. Fuck you.
+	public shuttleSent: SHUTTLE_STATUS = SHUTTLE_STATUS.Command
+	public booleans: {[name: string]: boolean} = {
 		revolution: false,
 		ertSent: false,
 		decomissioned: false,
 	}
-	createdOn = 0;
+	public readonly createdOn = 0;
 	
 	payPerCrewmember = 15;
 	crewmemberPrice = 150;
@@ -48,7 +48,7 @@ export class Station {
 		this.createdOn = tickCreated
 	}
 
-	tick(tickNumber) {
+	public tick(tickNumber) {
 		const div = document.getElementById(this.createdOn.toString())
 
 		if ((this.createdOn - tickNumber * -1) % 20 === 0) {
@@ -124,7 +124,7 @@ export class Station {
 		}
 	}
 
-	destroy() {
+	protected destroy() {
 		// In what world must you destroy a station?
 		// Do not use if you are decomissioning/selling a station.
 		// This is the main thing that destroys the Station instance
@@ -146,7 +146,7 @@ export class Station {
 		changeStations(stations.filter((element) => {return this != element}));
 	}
 
-	payDemands() {
+	public payDemands() {
 		if (credits > 10000) {
 			const creditsCalc = -Math.floor((credits / 2) + this.revenue);
 			addCredits(creditsCalc);
@@ -156,7 +156,7 @@ export class Station {
 		}
 	}
 
-	sellStation() {
+	public sellStation() {
 		addEventLog(`Nanotrasen sold (STATION_NAME) ${credits<this.revenue ? "at a profit" : "at a loss"}.`, this, `#000000`)
 		if (credits > this.revenue)	addCredits(-Math.floor(credits / 2));
 		else addCredits(Math.floor(credits / 2));
@@ -164,13 +164,13 @@ export class Station {
 		this.destroy();
 	}
 
-	addRevenue(revenue) {
+	public addRevenue(revenue) {
 		if (this.revenue > 0) {
 			this.revenue += revenue;
 		}
 	}
 
-	addUnrest(unrest, handleRevolution=true) {
+	public addUnrest(unrest, handleRevolution=true) {
 		if (this.unrest >= 0) {
 			this.unrest += unrest;
 			if (handleRevolution && this.unrest > 100) {
@@ -187,7 +187,7 @@ export class Station {
 		}
 	}
 
-	addCrew(crewmembers) {
+	public addCrew(crewmembers) {
 		this.crew += crewmembers
 		if (this.crew <= 0) {
 			// What is a station without the crew to manage it?
@@ -195,7 +195,7 @@ export class Station {
 		}
 	}
 
-	buyCrew(crewmembers) {
+	public buyCrew(crewmembers) {
 		if (credits >= this.crewmemberPrice) {
 			this.addCrew(crewmembers);
 			addCredits(-this.crewmemberPrice);
@@ -223,7 +223,7 @@ export class Station {
 		return this.revenue + this.crew * Math.floor(this.payPerCrewmember)
 	}
 
-	export() {
+	public export(): {[name: string]: string | number | boolean[] | boolean} {
 		return {
 			name: this.name,
 			revenue: this.revenue,
