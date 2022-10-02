@@ -5,7 +5,9 @@ class Loc {
     }
 
     async init() {
-        this.lang = window.navigator.language;
+        // doesnt load Loc if the lang doesn't exist, defaulting to en-US
+		//this.lang = window.navigator.language;
+		this.lang = "en-US"
         this.table = await this.getKeys(this.lang);
     }
 
