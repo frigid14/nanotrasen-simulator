@@ -7,7 +7,6 @@ class Rumor extends Event {
 	changedUnrest = 20
 
 	minimumUptime = 50
-	minimumCrew = 40
 }
 
 class AntagMajor extends Event {
@@ -21,7 +20,6 @@ class AntagMajor extends Event {
 	changedCredits = -1500
 
 	minimumUptime = 180
-	minimumCrew = 30
 }
 
 class ThiefCaughtFail extends Event {
@@ -33,7 +31,6 @@ class ThiefCaughtFail extends Event {
 	changedUnrest = -10
 
 	minimumUptime = 30
-	minimumCrew = 40
 }
 
 class ThiefCaughtSucceed extends Event {
